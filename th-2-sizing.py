@@ -1,52 +1,80 @@
-# Thunderbird 2 redesign - rough first-order sizing model (see th-2-re-design-ideas.md section 8)
-# Run: python3 th-2-sizing.py   - edit the run(...) lines at the bottom to try variants.
+# Thunderbird 2 redesign - rough first-order sizing model (see th-2-re-design-ideas.md sections 8-10)
+# Run: python3 th-2-sizing.py   - edit the calls at the bottom to try variants.
 import math
-g, rho = 9.81, 1.225
+g, R_AIR = 9.81, 287.05
+RHO0 = 1.225
 RANGE_KM, HOVER_MIN, RESERVE = 1500, 4, 0.10
 
-def run(name, W_t, fans, struct_frac, jets, LD, cruise, sto_gain):
+def rho(h, t_c):
+    """Air density at altitude h [m] and actual temperature t_c [degC]."""
+    p = 101325*(1-2.25577e-5*h)**5.25588
+    return p/(R_AIR*(t_c+273.15))
+
+CONDITIONS = [  # (label, altitude m, temperature degC) - includes warming margin
+    ("Sea level 15 C (ISA)",            0, 15),
+    ("Sahel / desert SL 50 C",          0, 50),
+    ("E-Africa highlands 2,500 m 40 C", 2500, 40),
+    ("Andes altiplano 4,000 m 25 C",    4000, 25),
+    ("Himalaya 5,000 m 15 C",           5000, 15),
+]
+
+def hover_power(W, r, A):          # W in kg; ducted fans, expanded wake, 80 % eff., 1.15 thrust margin
+    T = 1.15*W*g
+    return T**1.5/(2*math.sqrt(r*A))/0.80
+
+def run(name, W_t, fans, struct_frac, jets, LD, cruise, sto_gain, design=("SL ISA", 0, 15), quiet=False):
     W = W_t*1000
+    nf = len(fans)
     A = sum(math.pi*(d/2)**2 for d in fans)
-    T = 1.15*W*g                                  # control/hover margin
-    v = math.sqrt(T/(rho*A))                      # ducted fan, fully expanded wake
-    P_hover = T*v/2/0.80                          # W, duct+fan efficiency 0.8
-    P_inst = 1.2*P_hover                          # OEI contingency / hot-day margin
-    m_shaft = P_inst/1000/8*1.3                   # 8 kW/kg bare, x1.3 installed
-    m_drive = 0.22*P_inst/1000 + 0.015*W          # gearboxes, cross-shafts, tilt mech
-    m_fans  = 0.045*W                             # fans + ducts
-    # Structure: landing gear (4 %) sized for STO weight; bending structure sized by the
-    # worse of 2.5 g at VTOL weight or 2.0 g at STO overload weight (transport practice).
+    r_d = rho(design[1], design[2]); sig_d = r_d/RHO0
+    P_inst = 1.2*hover_power(W, r_d, A)/sig_d      # SL rating so that 1.2x hover power remains at design point
+    v = math.sqrt(1.15*W*g/(RHO0*A))
+    # fan-out capability: 6+ fans in 3 lengthwise pairs, middle pair at CG -> worst fans need 1.5x nominal
+    k = 1.5*1.05/1.15 if nf >= 6 else 1.0
+    m_shaft = P_inst/1000/8*1.3
+    # engines are flat-rated: turbines sized for thin/hot air (P_inst), but the gearboxes only
+    # carry the shaft power actually needed at the design point (1.2 x hover power there)
+    P_shaft = 1.2*hover_power(W, r_d, A)
+    m_drive = 0.22*P_shaft/1000*(0.5+0.5*k**1.5) + 0.015*W*(nf/4)**0.5
+    m_fans  = 20.0*A*(nf/4)**0.25*(k**0.5)         # ducted fan + duct ~20 kg per m2 of disk
     W_sto = W*(1+sto_gain)
-    m_gear = 0.04*W_sto
-    m_struct = m_gear + (struct_frac-0.04)*W*(max(2.5*W, 2.0*W_sto)/(2.5*W))**0.6
-    m_sys   = 0.07*W + 3000
+    m_struct = 0.04*W_sto + (struct_frac-0.04)*W*(max(2.5*W, 2.0*W_sto)/(2.5*W))**0.6
+    m_sys = 0.07*W + 3000
     m_jets, Tjet = 0, 0
     if jets:
-        D = 0.9*W*g/LD
-        Tjet = D/jets['lapse']*1.3                # SL static, climb margin
+        Tjet = 0.9*W*g/LD/jets['lapse']*1.3
         m_jets = Tjet/(4.5*g)
-    hover_fuel = P_hover/1000*0.27*HOVER_MIN/60
+    hover_fuel = hover_power(W, RHO0, A)/1000*0.27*HOVER_MIN/60
     W0 = W - hover_fuel
-    R = RANGE_KM*1000
-    if jets:
-        V = cruise; c = 0.6/3600
-        K = V*LD/c                       # TSFC c in 1/s (weight basis)
-    else:
-        cp = 0.28/(1000*3600); K = 0.75*LD/(g*cp)
-    cruise_fuel = W0*(1-math.exp(-R/K))
-    fuel = (hover_fuel + cruise_fuel)*(1+RESERVE)
-    fuel_sto = W_sto*(1-math.exp(-R/K))*(1+RESERVE)   # STO: no hover, heavier cruise
+    K = cruise*LD/(0.6/3600) if jets else 0.75*LD/(g*0.28/3.6e6)
+    fuel = (hover_fuel + W0*(1-math.exp(-RANGE_KM*1000/K)))*(1+RESERVE)
+    fuel_sto = W_sto*(1-math.exp(-RANGE_KM*1000/K))*(1+RESERVE)
     empty = m_shaft+m_drive+m_fans+m_struct+m_sys+m_jets
-    pay = W - empty - fuel
-    print(f"\n== {name}: VTOL gross {W_t} t, fans {fans} m, area {A:.0f} m2")
-    print(f"  downwash {v:.0f} m/s | hover power {P_hover/1e6:.0f} MW | installed {P_inst/1e6:.0f} MW")
-    for k,m in [("turboshafts",m_shaft),("drivetrain+tilt",m_drive),("fans+ducts",m_fans),("structure",m_struct),("systems",m_sys),(f"cruise jets ({Tjet/1e3/2:.0f} kN x2)",m_jets)]:
-        print(f"  {k:28s} {m/1000:6.1f} t")
-    print(f"  EMPTY {empty/1000:.1f} t ({empty/W:.0%}) | fuel {fuel/1000:.1f} t (hover {hover_fuel/1000:.1f})")
-    pay_sto = W_sto - empty - fuel_sto
-    print(f"  PAYLOAD VTOL {pay/1000:.1f} t ({pay/W:.0%}) | STO {W_sto/1000:.0f} t gross: {pay_sto/1000:.1f} t (fuel {fuel_sto/1000:.1f} t)")
-    print(f"  cruise {cruise*1.944:.0f} kn, L/D {LD}, range {RANGE_KM} km + {HOVER_MIN} min hover + {RESERVE:.0%}")
+    pay = W-empty-fuel; pay_sto = W_sto-empty-fuel_sto
+    res = {'empty':empty/1000,'pay':pay/1000,'pay_sto':pay_sto/1000,'P':P_inst/1e6,'hot':{}}
+    for lab,h,t in CONDITIONS:
+        r = rho(h,t); P_av = min(P_inst*(r/RHO0), P_shaft)/1.2   # engine lapse, gearbox limit
+        Wmax = (P_av*2*math.sqrt(r*A)*0.80)**(2/3)/(1.15*g)
+        res['hot'][lab] = (min(Wmax,W)-empty-fuel)/1000
+    if not quiet:
+        print(f"\n== {name}: {W_t} t VTOL, {nf} fans x {fans[0]} m ({A:.0f} m2), power sized for {design[0]}")
+        print(f"  installed {P_inst/1e6:.0f} MW (SL) | downwash {v:.0f} m/s | fan-out capable: {'yes' if nf>=6 else 'NO'}")
+        print(f"  shafts {m_shaft/1e3:.1f} | drive {m_drive/1e3:.1f} | fans {m_fans/1e3:.1f} | struct {m_struct/1e3:.1f} | sys {m_sys/1e3:.1f} | jets {m_jets/1e3:.1f}  -> EMPTY {empty/1e3:.1f} t")
+        print(f"  fuel {fuel/1e3:.1f} t | PAYLOAD VTOL {pay/1e3:.1f} t | STO {W_sto/1e3:.0f} t: {pay_sto/1e3:.1f} t | cruise {cruise*1.944:.0f} kn")
+        for lab,p in res['hot'].items():
+            print(f"    VTOL payload at {lab:32s} {p:6.1f} t")
+    return res
 
-run("Baseline v3 (compound)", 150, [9,9,10,10], 0.25, {'lapse':0.35}, 11, 221, 0.15)
-run("TB2-H Heavy (B+D, fans only)", 200, [12,12,12,12], 0.29, None, 10, 170, 0.35)
-run("TB2-F Fast (A+C, separate turboshafts + jets)", 100, [8,8,8,8], 0.27, {'lapse':0.30}, 12, 239, 0.25)
+if __name__ == "__main__":
+    SL  = ("SL ISA", 0, 15)
+    HOT = ("SL 50 C", 0, 50)
+    MID = ("2,500 m 40 C", 2500, 40)
+    HI  = ("4,000 m 25 C", 4000, 25)
+    print("############ TB2-H HEAVY (B+D), 200 t VTOL / 270 t STO ############")
+    run("H 4 fans (previous)", 200, [12]*4, 0.29, None, 10, 170, 0.35, SL)
+    for d in (SL, HOT, MID, HI):
+        run(f"H 6 fans", 200, [9.8]*6, 0.29, None, 10, 170, 0.35, d)
+    print("\n############ TB2-F FAST (A+C), 100 t VTOL, feathered fans ~M0.7 ############")
+    run("F 4 fans (previous, M0.77)", 100, [8]*4, 0.27, {'lapse':0.30}, 12, 239, 0.25, SL)
+    for d in (SL, HOT, MID, HI):
+        run(f"F 6 fans, feathered", 100, [6.5]*6, 0.27, {'lapse':0.32}, 11, 217, 0.25, d)

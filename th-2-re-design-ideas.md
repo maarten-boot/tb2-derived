@@ -206,8 +206,8 @@ Estimate for the 150 t gross concept:
 
 ### 5.5 New open questions
 - [x] Update drawing: upswept aft body with ramp, outboard fins, kneeling gear, no pod (done 2026-10-14: `th-2-re-design.svg/.png`; v1 with pod kept as `th-2-re-design-v1.*`).
-- [ ] Mission-module standard (size like an ISO container? 463L pallets?).
-- [ ] Hold dimensions vs. target cargo (largest rescue vehicle to carry).
+- [x] Cargo standard: ISO 20 ft containers (decided 2026-10-14, §10).
+- [x] Hold sized for 2×2 20 ft containers (Heavy), see §10.
 - [ ] Downwash effect on the open ramp area and on people near it during hover.
 
 ---
@@ -318,7 +318,7 @@ Very rough targets:
 ### 7.4 New open questions
 - [x] Lifting-area options per variant: **H = B+D, F = A+C** (decided 2026-10-14, see §8).
 - [ ] Stop/fold fan mechanism for TB2-F, or accept ~Mach 0.7 with feathered fans?
-- [ ] Shared parts between H and F (cockpit, fans, avionics, mission modules)?
+- [x] Shared parts: no, optimise each aircraft (decided 2026-10-14).
 - [x] Drawings for both variants (see `th-2-variants.*`).
 
 ---
@@ -387,8 +387,8 @@ F VTOL ≈ 2× a V-22 internal load, at ~1.7× V-22 speed.
 ### 8.4 New open questions
 - [x] H: structure designed for 270 t STO (decided 2026-10-14, see §9).
 - [x] F: proven separate turboshafts + cruise jets (decided 2026-10-14, see §9).
-- [ ] F: stop/fold fans (true Mach 0.77) vs. feathered fans (~Mach 0.7, simpler)?
-- [ ] Hot-and-high performance check (e.g. 35 °C / 1,500 m site).
+- [x] F: feathered fans, ~Mach 0.7, no experimental tech (decided 2026-10-14, §10).
+- [x] Hot-and-high check: done, see §10.
 - [x] Drawings for TB2-H and TB2-F: `th-2-variants.svg/.png` (2026-10-14).
 
 ---
@@ -431,8 +431,187 @@ F VTOL ≈ 2× a V-22 internal load, at ~1.7× V-22 speed.
   into the disaster site by VTOL (~34 t), or the Fast handles the last leg.
 
 ### 9.4 Open questions (carried forward)
-- [ ] F: stop/fold fans (true Mach 0.77) vs. feathered fans (~Mach 0.7, simpler)?
-- [ ] H: STO strip length and rough-field capability (gear flotation for 270 t on
+- [x] F: feathered fans, ~Mach 0.7, no experimental tech (decided 2026-10-14, §10).
+- [x] H: STO strip length and rough-field capability (see §11) (gear flotation for 270 t on
       unpaved strips).
-- [ ] Hot-and-high performance check (e.g. 35 °C / 1,500 m site).
+- [x] Hot-and-high check: done, see §10.
 - [x] Drawings for TB2-H and TB2-F: `th-2-variants.svg/.png` (2026-10-14).
+
+---
+
+## 10. Iteration 5 (2026-10-14): containers, 6 fans, hot-and-high
+
+### 10.1 Decisions
+- **Cargo = standard ISO 20 ft containers** (6.06 × 2.44 × 2.59 m; high-cube 2.90 m;
+  max gross ~30 t).
+- **Fast: feathered fans, ~Mach 0.7.** No experimental technology.
+- **No shared parts:** each aircraft is fully optimised for its role.
+- **Hot-and-high included up front:** Africa (desert + highlands), Andes, Himalaya,
+  with a global-warming temperature margin.
+- **6 fans** for fan-out safety (see 10.3).
+
+### 10.2 Container hold
+- **Heavy, 2 × 2 on one level: yes, realistic.** Hold ≈ 13.5 m long × 6.0 m wide ×
+  3.3 m high (3.6 m for high-cube), roller floor + winch, loaded via the rear ramp.
+  Comparison: C-17 hold 5.5 m wide, An-124 6.4 m wide. The Heavy's ~26 m wide body
+  has room to spare.
+  - Option: hold length ~20 m (3 × 2 = 6 containers) for light/bulky STO cargo.
+- **Weight, not volume, is the limit:** 4 full containers (up to ~120 t) exceed
+  every payload. VTOL: 1–2 loaded containers or 4 light ones (relief goods).
+  STO: 4 containers at ~18–26 t average.
+- **Fast:** 1 wide × 2 long; hold ≈ 13.5 × 3.2 × 3.3 m. VTOL: 1 lightly loaded
+  container; STO: 1–2.
+
+### 10.3 Six fans: why it works
+- **4 fans, one fails:** the diagonally opposite fan must drop to ~0 to keep the
+  aircraft level, leaving only 2 fans at 2× thrust each. Not survivable in a hover.
+- **6 fans as 3 lengthwise pairs, middle pair at the CG, one fails:** solving the
+  roll/pitch balance gives the 4 remaining "good" fans at **1.5×** nominal
+  thrust, with the fan opposite the failure throttled to ~0.
+  Total power is only ~+7 % (fine on a 2.5-min emergency rating). But each fan +
+  gearbox must handle ~1.37× thrust ≈ 1.6× power for a short time, which makes
+  the drivetrain heavier.
+  (8 fans → 1.33×, but more units; 6 is the sweet spot.)
+- **Cost:** about −10 t VTOL payload on the Heavy at sea level (heavier
+  drivetrain + more fan units). This is the price of a survivable hover
+  ("Category A" style).
+- **Layout:**
+  - Heavy: front tandem-wing tips / middle pair at CG on short sponsons beside the
+    hold / rear wing tips.
+  - Fast: canard tips / main-wing tips (wing moved so its fans sit at the CG) /
+    H-tail tips.
+
+### 10.4 Hot-and-high results (`th-2-sizing.py`, flat-rated engines)
+Design conditions (with warming margin): SL 15 °C, Sahel SL 50 °C, E-Africa highlands
+2,500 m 40 °C, Andes altiplano 4,000 m 25 °C, Himalaya 5,000 m 15 °C.
+
+**The physics:** thin, hot air means the fans need more power, *and* the engines
+make less. At 2,500 m / 40 °C the engines need ~1.8× sea-level rating. Bigger fans
+(lower disk loading) are the main lever, up to a point (duct weight grows with area).
+
+VTOL payload, 6 fans, **design point 2,500 m / 40 °C (recommended)**:
+
+| | Heavy 6 × Ø14 m | Fast 6 × Ø10 m |
+|---|---|---|
+| Disk loading / downwash | ~217 kg/m² / ~45 m/s | ~212 kg/m² / ~44 m/s |
+| Installed power (SL rating) | ~135 MW | ~67 MW |
+| Empty | ~156 t | ~83 t |
+| VTOL payload, 1,500 km mission, up to 2,500 m/40 °C | ~12 t | ~5 t |
+| **VTOL payload, 300 km shuttle, up to 2,500 m/40 °C** | **~36 t** | **~14 t** |
+| VTOL 300 km shuttle, Andes 4,000 m | ~10 t | ~0 |
+| VTOL Himalaya 5,000 m | not possible | not possible |
+| STO payload (sea level, 1,500 / 300 km) | ~72 / ~105 t | ~28 / ~39 t |
+
+For comparison, designing for sea level 50 °C only (Heavy 6 × 12 m, Fast 6 × 10 m)
+gives more payload at low altitude (H ~22 / 47 t, F ~10 / 19 t for 1,500 / 300 km),
+but **no VTOL at all in the highlands**.
+
+**Conclusions**
+1. 2,500 m / 40 °C as the design point covers all of Africa incl. the highlands,
+   with warming margin. Bonus: the bigger fans cut downwash from ~65 to ~45 m/s.
+2. **Operating doctrine becomes essential**: fly long distance to a strip (STO or
+   conventional landing, big payload), then **VTOL shuttle** from there
+   (~300 km legs, light fuel).
+3. **4,000–5,000 m heavy VTOL is beyond physics for this class**, and for real
+   aircraft too: the Mi-26 can only hover out of ground effect up to ~1,800 m
+   at max weight. Himalaya rescues are done by light helicopters. Andes /
+   Himalaya = STO onto high-altitude strips (El Alto 4,060 m has a 4 km runway),
+   or a future light high-altitude variant.
+4. The Fast at 1,500 km + VTOL is now a medevac/crew aircraft (~5 t). Its value is
+   speed to a strip, then short VTOL hops.
+
+### 10.5 Discussion: options for Q8 (balance) and Q9 (fan load split)
+**Q8: keep the aircraft balanced from empty to full hold**
+- a. Hold centred on the CG (done), containers loaded symmetrically around it.
+- b. Fore/aft fuel trim tanks (Concorde-style).
+- c. Lifting surfaces sized for a CG range of ±~4 % of length. Rough lift split:
+  Heavy tandem ~45 % front / 55 % rear; Fast canard ~15 %, wing ~75 %, H-tail ~10 %.
+- d. Fly-by-wire with relaxed stability.
+- Recommendation: all four. None of them is exotic.
+
+**Q9: fan load split (6 fans, middle pair at the CG)**
+- a. **Equal fans everywhere**: one fan type, loads balanced by blade pitch.
+  Simplest; fan-out case is symmetric. (Recommended.)
+- b. Larger middle pair: carries more in normal hover, but the fan-out case loads
+  the outer fans, so little is gained.
+- c. Unequal front/rear fans matched to lever arms: needed only if the middle pair
+  can't sit at the CG.
+
+### 10.6 Q10: downwash and rescue hoisting
+- Agreed: **winching from the rear ramp is unrealistic.** The load hangs behind the
+  CG, sits in the rear fans' wake, and can swing into the tail.
+- Options:
+  - **Rescue hoist + cargo hook at the CG** through a floor hatch between the
+    middle fans (CH-47 "hell-hole" style), with a long line (40–60 m) to get people
+    below the worst downwash.
+  - Primary Thunderbird doctrine: **land 100–200 m away and deploy vehicles down
+    the ramp.**
+  - Downwash ~45 m/s (bigger fans) is still well above a heavy helicopter's, so
+    keep people clear.
+
+### 10.7 New open questions (from 6 fans + hot-and-high)
+- [ ] Heavy middle fans on sponsons beside the hold: width impact (~60–65 m span with Ø14 m fans).
+- [ ] Middle fans: tilting or fixed (hover only)? Fixed is lighter but is dead weight in cruise.
+- [ ] Fan-wake interaction front → middle → rear fans during transition.
+- [ ] Cross-shaft routing to 6 fans; drivetrain failure modes.
+- [ ] Fast: canard and H-tail grow to carry Ø10 m fans (~34 m span each). Still "slim"?
+- [ ] Future light high-altitude variant (Andes/Himalaya)?
+- [x] Q7 strip length + rough field: first estimate done, see §11.
+      compared with existing aircraft (C-130J, A400M, C-17, An-72/74 USB).
+- [x] `th-2-variants` redrawn: 6 fans on side booms (H) / canard-wing-H-tail (F), container hold, more wheels (2026-10-14). Old version: `th-2-variants-v1.*`.
+
+---
+
+## 11. Strip length vs. existing aircraft (2026-10-14)
+
+Model: `th-2-strip.py`. Point-mass simulation: fans tilted forward at the best fixed
+angle, wing + body lift, thrust falling with speed, rolling friction (paved 0.03 /
+unpaved 0.08), airborne to 15 m. Landing: 6° steep approach from 15 m, touchdown with
+fans at 70 % thrust, braked roll (paved μ 0.40 / unpaved 0.25). Uses the 6-fan,
+2,500 m / 40 °C design (H 6 × Ø14 m, F 6 × Ø10 m).
+
+### 11.1 Results (unfactored, first-order)
+| Condition | **Heavy TO @ 270 t** | **Heavy LDG @ 230 t** | **Fast TO @ 125 t** | **Fast LDG @ 113 t** |
+|---|---|---|---|---|
+| Sea level 15 °C, paved | vertical | ~190 m | vertical | ~190 m |
+| Sahel SL 50 °C, unpaved | vertical | ~240 m | vertical | ~240 m |
+| E-Africa 2,500 m 40 °C, unpaved | ~320 m | ~310 m | ~250 m | ~310 m |
+| Andes El Alto 4,000 m 25 °C, paved | ~470 m | ~300 m | ~380 m | ~300 m |
+
+**Planning values (×1.5 for engine/fan-out margins, pilot technique, model
+optimism): Heavy ≲ 700 m, Fast ≲ 600 m, at every condition up to 4,000 m.**
+
+### 11.2 Existing aircraft for comparison (published / press figures)
+| Aircraft | Weight | Field performance |
+|---|---|---|
+| C-130J-30 | MTOW ~74 t | landing ~915 m (3,000 ft) at 61 t |
+| A400M | ~120–140 t | landing on unprepared strips < 800 m (2025 grass trials, 123 t) |
+| C-17 | MTOW 265 t | operates from 1,067 m (3,500 ft) strips; take-off with 72.6 t payload needs ~2,300 m (7,600 ft) |
+| An-72 (USB, Coandă) | ~33 t | take-off roll 620 m, landing roll 420 m |
+
+**Takeaway:** both TB2 variants beat everything in service by a wide margin. The
+Heavy at C-17 weight needs a strip about the length an A400M needs (or less),
+and the An-72's rolls are longer than TB2's estimated distances.
+Reason: the fans carry most of the weight, so wing lift only has to make up the rest.
+
+### 11.3 Surprise: hot-and-high power gives lowland VTOL at STO weight
+The engines are flat-rated for 2,500 m / 40 °C, so at sea level there is lots of
+spare thrust. Max hover (5 % margin): Heavy ~280 t, Fast ~140 t at sea level.
+At lowland sites the Heavy could **take off vertically at up to the 270 t structural
+limit**, so the "STO payload" (~72–105 t) becomes VTOL payload there.
+Caveats: control margin is reduced (1.05 instead of 1.15) and fan-out safety is not
+covered at that weight. Needs a rule like "VTOL above 200 t only below X m / Y °C,
+fan-out risk accepted" or a lower cap (~230–250 t). → open question.
+
+### 11.4 Rough-field gear (flotation)
+- Main-wheel load reference: A400M ~11 t/wheel, C-17 ~17 t/wheel.
+- Heavy 270 t on 12 wheels = 22.5 t/wheel. Too much for soft strips →
+  **~22 main wheels (11 per side)** for A400M-class soft-field capability.
+- Fast 125 t on 4 wheels = 31 t/wheel. Far too much → **~10 main wheels (5 per side)**.
+- Drawing `th-2-variants` updated accordingly.
+
+### 11.5 New open questions
+- [ ] Lowland VTOL above 200 t: allow (with reduced margins / no fan-out cover) or cap?
+- [ ] Downwash on unpaved strips during STO (dust/brown-out, debris ingestion).
+- [ ] Fan-out during take-off roll / first 15 m: reject or continue distances.
+- [ ] Gear weight for 22 / 10 main wheels (not yet in the sizing model).
