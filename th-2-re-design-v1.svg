@@ -1,0 +1,205 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1040" width="1200" height="1040" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="hullTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4f9448"/>
+      <stop offset="0.5" stop-color="#3f7d3a"/>
+      <stop offset="1" stop-color="#2f6230"/>
+    </linearGradient>
+    <linearGradient id="hullSide" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5aa152"/>
+      <stop offset="1" stop-color="#2b5a28"/>
+    </linearGradient>
+    <linearGradient id="pod" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f0d264"/>
+      <stop offset="1" stop-color="#c9a632"/>
+    </linearGradient>
+    <marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#5b8fd6"/>
+    </marker>
+    <marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5">
+      <circle cx="5" cy="5" r="4" fill="#333"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="1040" fill="#f7f7f4"/>
+
+  <text x="40" y="44" font-size="26" font-weight="bold" fill="#222">Thunderbird 2 — "flyable" redesign concept</text>
+  <text x="40" y="70" font-size="14" fill="#555">Lifting-body hull · canard + mid-body forward-swept wing bracketing the CG · 4 tilting ducted fans · centred pod bay</text>
+
+  <!-- ================= PLAN VIEW ================= -->
+  <text x="40" y="110" font-size="15" font-weight="bold" fill="#333">PLAN VIEW (from above, hover configuration)</text>
+  <g transform="translate(0,75)">
+    <!-- centreline -->
+    <line x1="150" y1="300" x2="900" y2="300" stroke="#999" stroke-dasharray="8 4 2 4" stroke-width="1"/>
+
+    <!-- main wings (forward swept, mid-body) -->
+    <polygon points="640,222 562,60 624,52 762,220" fill="#356d32" stroke="#1f441d" stroke-width="2"/>
+    <polygon points="640,378 562,540 624,548 762,380" fill="#356d32" stroke="#1f441d" stroke-width="2"/>
+
+    <!-- canards -->
+    <polygon points="330,232 360,170 398,168 405,230" fill="#356d32" stroke="#1f441d" stroke-width="2"/>
+    <polygon points="330,368 360,430 398,432 405,370" fill="#356d32" stroke="#1f441d" stroke-width="2"/>
+
+    <!-- hull (lifting body) -->
+    <path d="M180,300 C180,262 215,232 290,226 L600,218 L800,228 L866,252 L874,300 L866,348 L800,372 L600,382 L290,374 C215,368 180,338 180,300 Z"
+          fill="url(#hullTop)" stroke="#1f441d" stroke-width="2.5"/>
+    <!-- dorsal spine / keel box lines -->
+    <line x1="300" y1="262" x2="820" y2="268" stroke="#2b5a28" stroke-width="1.5"/>
+    <line x1="300" y1="338" x2="820" y2="332" stroke="#2b5a28" stroke-width="1.5"/>
+    <!-- cockpit -->
+    <path d="M205,282 Q230,270 262,272 L262,328 Q230,330 205,318 Z" fill="#1d2b3a" stroke="#0d151d" stroke-width="1.5"/>
+
+    <!-- pod (hidden, beneath) -->
+    <rect x="400" y="246" width="172" height="108" rx="10" fill="none" stroke="#c9a632" stroke-width="2.5" stroke-dasharray="9 5"/>
+    <text x="486" y="272" font-size="13" fill="#f0d264" text-anchor="middle" font-weight="bold">POD (below)</text>
+
+    <!-- twin canted fins -->
+    <polygon points="790,262 872,256 874,266 800,270" fill="#2b5a28" stroke="#1f441d"/>
+    <polygon points="790,338 872,344 874,334 800,330" fill="#2b5a28" stroke="#1f441d"/>
+
+    <!-- ducted fans: wing tips -->
+    <g>
+      <circle cx="594" cy="58" r="47" fill="#9aa1aa" stroke="#3a3f45" stroke-width="4"/>
+      <circle cx="594" cy="58" r="10" fill="#3a3f45"/>
+      <g stroke="#5a6068" stroke-width="3">
+        <line x1="594" y1="58" x2="594" y2="16"/><line x1="594" y1="58" x2="634" y2="72"/>
+        <line x1="594" y1="58" x2="560" y2="84"/><line x1="594" y1="58" x2="552" y2="44"/><line x1="594" y1="58" x2="622" y2="24"/>
+      </g>
+    </g>
+    <g>
+      <circle cx="594" cy="542" r="47" fill="#9aa1aa" stroke="#3a3f45" stroke-width="4"/>
+      <circle cx="594" cy="542" r="10" fill="#3a3f45"/>
+      <g stroke="#5a6068" stroke-width="3">
+        <line x1="594" y1="542" x2="594" y2="584"/><line x1="594" y1="542" x2="634" y2="528"/>
+        <line x1="594" y1="542" x2="560" y2="516"/><line x1="594" y1="542" x2="552" y2="556"/><line x1="594" y1="542" x2="622" y2="576"/>
+      </g>
+    </g>
+    <!-- ducted fans: canard tips -->
+    <g>
+      <circle cx="378" cy="166" r="42" fill="#9aa1aa" stroke="#3a3f45" stroke-width="4"/>
+      <circle cx="378" cy="166" r="9" fill="#3a3f45"/>
+      <g stroke="#5a6068" stroke-width="3">
+        <line x1="378" y1="166" x2="378" y2="128"/><line x1="378" y1="166" x2="414" y2="178"/>
+        <line x1="378" y1="166" x2="347" y2="190"/><line x1="378" y1="166" x2="340" y2="154"/><line x1="378" y1="166" x2="404" y2="134"/>
+      </g>
+    </g>
+    <g>
+      <circle cx="378" cy="434" r="42" fill="#9aa1aa" stroke="#3a3f45" stroke-width="4"/>
+      <circle cx="378" cy="434" r="9" fill="#3a3f45"/>
+      <g stroke="#5a6068" stroke-width="3">
+        <line x1="378" y1="434" x2="378" y2="472"/><line x1="378" y1="434" x2="414" y2="422"/>
+        <line x1="378" y1="434" x2="347" y2="410"/><line x1="378" y1="434" x2="340" y2="446"/><line x1="378" y1="434" x2="404" y2="466"/>
+      </g>
+    </g>
+
+    <!-- CG marker -->
+    <g transform="translate(486,300)">
+      <circle r="11" fill="#fff" stroke="#111" stroke-width="2"/>
+      <path d="M0,-11 A11,11 0 0,1 11,0 L0,0 Z M0,11 A11,11 0 0,1 -11,0 L0,0 Z" fill="#111"/>
+    </g>
+    <!-- lift centre markers -->
+    <line x1="378" y1="210" x2="378" y2="390" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <line x1="660" y1="110" x2="660" y2="490" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+    <!-- callouts plan -->
+    <g font-size="13" fill="#222">
+      <line x1="430" y1="150" x2="398" y2="196" stroke="#333" marker-end="url(#dot)"/>
+      <text x="436" y="146">Canard foreplane (lifting, +ve load)</text>
+      <line x1="320" y1="120" x2="356" y2="132" stroke="#333" marker-end="url(#dot)"/>
+      <text x="170" y="116">Fwd tilting ducted fan Ø≈9 m</text>
+      <line x1="690" y1="34" x2="640" y2="50" stroke="#333" marker-end="url(#dot)"/>
+      <text x="696" y="38">Aft tilting ducted fan Ø≈10 m</text>
+      <line x1="760" y1="130" x2="700" y2="160" stroke="#333" marker-end="url(#dot)"/>
+      <text x="766" y="126">Forward-swept main wing, moved to mid-body</text>
+      <text x="766" y="142" fill="#555">(composite aeroelastic tailoring, X-29 style)</text>
+      <line x1="930" y1="300" x2="874" y2="300" stroke="#333"/>
+      <text x="936" y="296">Lifting-body hull</text>
+      <text x="936" y="312" fill="#555">carries ~30–40 % of lift</text>
+      <line x1="930" y1="360" x2="870" y2="340" stroke="#333" marker-end="url(#dot)"/>
+      <text x="936" y="366">Twin canted fins</text>
+      <line x1="486" y1="400" x2="486" y2="314" stroke="#333"/>
+      <text x="420" y="416">CG (pod centred here)</text>
+      <text x="300" y="512" fill="#c0392b">canard lift line</text>
+      <text x="672" y="500" fill="#c0392b">wing lift line</text>
+    </g>
+
+    <!-- scale bar -->
+    <g transform="translate(940,520)">
+      <line x1="0" y1="0" x2="90" y2="0" stroke="#222" stroke-width="3"/>
+      <line x1="0" y1="-6" x2="0" y2="6" stroke="#222" stroke-width="2"/>
+      <line x1="45" y1="-4" x2="45" y2="4" stroke="#222" stroke-width="2"/>
+      <line x1="90" y1="-6" x2="90" y2="6" stroke="#222" stroke-width="2"/>
+      <text x="45" y="22" font-size="12" text-anchor="middle">10 m</text>
+      <text x="0" y="44" font-size="12" fill="#555">Length ≈ 76 m · span ≈ 55 m</text>
+    </g>
+  </g>
+
+  <!-- ================= SIDE VIEW ================= -->
+  <text x="40" y="735" font-size="15" font-weight="bold" fill="#333">SIDE VIEW (hovering, pod attached)</text>
+  <g transform="translate(0,40)">
+    <!-- ground -->
+    <rect x="0" y="928" width="1200" height="62" fill="#d9d3c3"/>
+    <line x1="0" y1="928" x2="1200" y2="928" stroke="#8a826e" stroke-width="2"/>
+
+    <!-- downwash -->
+    <g stroke="#5b8fd6" stroke-width="2.5" marker-end="url(#arr)" opacity="0.8">
+      <line x1="345" y1="776" x2="338" y2="900"/><line x1="378" y1="776" x2="378" y2="910"/><line x1="411" y1="776" x2="418" y2="900"/>
+      <line x1="560" y1="786" x2="552" y2="905"/><line x1="594" y1="786" x2="594" y2="915"/><line x1="628" y1="786" x2="636" y2="905"/>
+    </g>
+
+    <!-- twin fins -->
+    <path d="M790,742 L842,650 L878,650 L872,742 Z" fill="#2b5a28" stroke="#1f441d" stroke-width="2"/>
+    <text x="846" y="708" font-size="34" font-weight="bold" fill="#c0392b" text-anchor="middle">2</text>
+
+    <!-- hull side -->
+    <path d="M180,795 C184,752 232,732 300,728 L600,720 C700,722 800,735 872,760 L874,780 L820,800 L600,818 L290,820 C220,820 182,812 180,795 Z"
+          fill="url(#hullSide)" stroke="#1f441d" stroke-width="2.5"/>
+    <!-- cockpit glazing -->
+    <path d="M200,768 Q226,742 278,738 L282,758 Q240,760 208,780 Z" fill="#1d2b3a"/>
+    <!-- hull detail -->
+    <line x1="300" y1="790" x2="840" y2="782" stroke="#2b5a28" stroke-width="1.5"/>
+
+    <!-- canard (edge-on) -->
+    <path d="M326,752 L408,748 L404,756 L330,758 Z" fill="#1f441d"/>
+    <!-- main wing (edge-on) -->
+    <path d="M556,752 L766,758 L760,766 L560,762 Z" fill="#1f441d"/>
+
+    <!-- fans in hover (horizontal discs) -->
+    <rect x="336" y="740" width="84" height="26" rx="5" fill="#9aa1aa" stroke="#3a3f45" stroke-width="3"/>
+    <rect x="547" y="746" width="94" height="28" rx="5" fill="#9aa1aa" stroke="#3a3f45" stroke-width="3"/>
+    <!-- cruise tilt ghost -->
+    <ellipse cx="594" cy="730" rx="14" ry="47" fill="none" stroke="#3a3f45" stroke-width="1.5" stroke-dasharray="5 4"/>
+    <ellipse cx="378" cy="724" rx="13" ry="42" fill="none" stroke="#3a3f45" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+    <!-- landing legs -->
+    <g stroke="#444" stroke-width="7" stroke-linecap="round">
+      <line x1="372" y1="816" x2="360" y2="924"/>
+      <line x1="610" y1="814" x2="622" y2="924"/>
+      <line x1="760" y1="806" x2="772" y2="924"/>
+    </g>
+    <g fill="#333">
+      <rect x="344" y="920" width="32" height="8" rx="2"/>
+      <rect x="606" y="920" width="32" height="8" rx="2"/>
+      <rect x="756" y="920" width="32" height="8" rx="2"/>
+    </g>
+
+    <!-- pod -->
+    <rect x="400" y="820" width="172" height="100" rx="12" fill="url(#pod)" stroke="#8a7020" stroke-width="2.5"/>
+    <text x="486" y="878" font-size="22" font-weight="bold" fill="#5c4a10" text-anchor="middle">POD</text>
+
+    <!-- side callouts -->
+    <g font-size="13" fill="#222">
+      <line x1="230" y1="846" x2="236" y2="816" stroke="#333" marker-end="url(#dot)"/>
+      <text x="130" y="862">Cambered lifting-body profile</text>
+      <line x1="560" y1="676" x2="584" y2="690" stroke="#333"/>
+      <text x="420" y="672">Fans tilt 90° fwd for cruise (dashed)</text>
+      <line x1="960" y1="790" x2="874" y2="776" stroke="#333"/>
+      <text x="966" y="786">Deep keel beams + closed</text>
+      <text x="966" y="802">roof box over pod bay</text>
+      <text x="966" y="840" fill="#555">Cruise ≈ Mach 0.7 (subsonic)</text>
+      <text x="966" y="856" fill="#555">Target gross ≈ 120–150 t</text>
+      <text x="966" y="872" fill="#555">Hover downwash ≈ 45–90 m/s</text>
+      <text x="660" y="900" fill="#2c5f9e">downwash</text>
+    </g>
+  </g>
+</svg>

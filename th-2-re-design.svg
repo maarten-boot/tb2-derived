@@ -1,0 +1,239 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1040" width="1200" height="1040" font-family="Helvetica, Arial, sans-serif">
+  <defs>
+    <linearGradient id="hullTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4f9448"/>
+      <stop offset="0.5" stop-color="#3f7d3a"/>
+      <stop offset="1" stop-color="#2f6230"/>
+    </linearGradient>
+    <linearGradient id="hullSide" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5aa152"/>
+      <stop offset="1" stop-color="#2b5a28"/>
+    </linearGradient>
+    <linearGradient id="veh" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f0d264"/>
+      <stop offset="1" stop-color="#c9a632"/>
+    </linearGradient>
+    <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#1f441d" stroke-width="2"/>
+    </pattern>
+    <marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5">
+      <circle cx="5" cy="5" r="4" fill="#333"/>
+    </marker>
+    <marker id="arr" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#555"/>
+    </marker>
+    <linearGradient id="plume" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#b9c0c8" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#b9c0c8" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="1040" fill="#f7f7f4"/>
+
+  <text x="40" y="44" font-size="26" font-weight="bold" fill="#222">Thunderbird 2 — redesign v3: compound (lift fans + cruise jets)</text>
+  <text x="40" y="70" font-size="14" fill="#555">Pod deleted · closed composite lifting-body hull · canard + mid-body forward-swept wing · 4 tilting ducted fans · 2 dorsal cruise jets · rear ramp</text>
+
+  <!-- ================= PLAN VIEW ================= -->
+  <text x="40" y="110" font-size="15" font-weight="bold" fill="#333">PLAN VIEW (from above)</text>
+  <g transform="translate(0,75)">
+    <line x1="150" y1="300" x2="900" y2="300" stroke="#999" stroke-dasharray="8 4 2 4" stroke-width="1"/>
+
+    <!-- main wings -->
+    <polygon points="640,222 562,60 624,52 762,220" fill="#356d32" stroke="#1f441d" stroke-width="2"/>
+    <polygon points="640,378 562,540 624,548 762,380" fill="#356d32" stroke="#1f441d" stroke-width="2"/>
+    <!-- canards -->
+    <polygon points="330,232 360,170 398,168 405,230" fill="#356d32" stroke="#1f441d" stroke-width="2"/>
+    <polygon points="330,368 360,430 398,432 405,370" fill="#356d32" stroke="#1f441d" stroke-width="2"/>
+
+    <!-- outboard twin fins (on hull edges, canted out) -->
+    <polygon points="786,222 870,214 874,224 796,232" fill="#2b5a28" stroke="#1f441d" stroke-width="1.5"/>
+    <polygon points="786,378 870,386 874,376 796,368" fill="#2b5a28" stroke="#1f441d" stroke-width="1.5"/>
+
+    <!-- hull -->
+    <path d="M180,300 C180,262 215,232 290,226 L600,218 L800,228 L866,252 L874,300 L866,348 L800,372 L600,382 L290,374 C215,368 180,338 180,300 Z"
+          fill="url(#hullTop)" stroke="#1f441d" stroke-width="2.5"/>
+    <!-- cockpit -->
+    <path d="M205,282 Q230,270 262,272 L262,328 Q230,330 205,318 Z" fill="#1d2b3a" stroke="#0d151d" stroke-width="1.5"/>
+
+    <!-- internal hold (hidden lines) -->
+    <rect x="300" y="250" width="420" height="100" rx="8" fill="none" stroke="#f0d264" stroke-width="2.5" stroke-dasharray="9 5"/>
+    <g fill="none" stroke="#e8d48a" stroke-width="1.5" stroke-dasharray="4 3">
+      <rect x="314" y="262" width="88" height="76" rx="3"/>
+      <rect x="412" y="262" width="88" height="76" rx="3"/>
+      <rect x="518" y="262" width="88" height="76" rx="3"/>
+      <rect x="616" y="262" width="88" height="76" rx="3"/>
+    </g>
+    <!-- rear ramp + upper aft door -->
+    <polygon points="720,256 852,262 852,338 720,344" fill="url(#hatch)" stroke="#f0d264" stroke-width="2.5" stroke-dasharray="9 5"/>
+
+    <!-- dorsal cruise turbofans (on top of aft body, between fins) -->
+    <g id="jetP">
+      <polygon points="806,262 905,256 905,286 806,280" fill="url(#plume)"/>
+      <rect x="686" y="258" width="120" height="26" rx="13" fill="#8f969e" stroke="#3a3f45" stroke-width="2"/>
+      <ellipse cx="690" cy="271" rx="5" ry="11" fill="#2a2e33"/>
+      <line x1="760" y1="260" x2="760" y2="282" stroke="#3a3f45" stroke-width="1.5"/>
+    </g>
+    <use href="#jetP" transform="translate(0,600) scale(1,-1)"/>
+
+    <!-- CG marker -->
+    <g transform="translate(505,300)">
+      <circle r="11" fill="#fff" stroke="#111" stroke-width="2"/>
+      <path d="M0,-11 A11,11 0 0,1 11,0 L0,0 Z M0,11 A11,11 0 0,1 -11,0 L0,0 Z" fill="#111"/>
+    </g>
+
+    <!-- fans -->
+    <g id="fanA">
+      <circle cx="594" cy="58" r="47" fill="#9aa1aa" stroke="#3a3f45" stroke-width="4"/>
+      <circle cx="594" cy="58" r="10" fill="#3a3f45"/>
+      <g stroke="#5a6068" stroke-width="3">
+        <line x1="594" y1="58" x2="594" y2="16"/><line x1="594" y1="58" x2="634" y2="72"/>
+        <line x1="594" y1="58" x2="560" y2="84"/><line x1="594" y1="58" x2="552" y2="44"/><line x1="594" y1="58" x2="622" y2="24"/>
+      </g>
+    </g>
+    <use href="#fanA" transform="translate(0,600) scale(1,-1)"/>
+    <g id="fanB">
+      <circle cx="378" cy="166" r="42" fill="#9aa1aa" stroke="#3a3f45" stroke-width="4"/>
+      <circle cx="378" cy="166" r="9" fill="#3a3f45"/>
+      <g stroke="#5a6068" stroke-width="3">
+        <line x1="378" y1="166" x2="378" y2="128"/><line x1="378" y1="166" x2="414" y2="178"/>
+        <line x1="378" y1="166" x2="347" y2="190"/><line x1="378" y1="166" x2="340" y2="154"/><line x1="378" y1="166" x2="404" y2="134"/>
+      </g>
+    </g>
+    <use href="#fanB" transform="translate(0,600) scale(1,-1)"/>
+
+    <!-- lift lines -->
+    <line x1="378" y1="210" x2="378" y2="390" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <line x1="660" y1="110" x2="660" y2="490" stroke="#c0392b" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+    <!-- callouts -->
+    <g font-size="13" fill="#222">
+      <line x1="430" y1="150" x2="398" y2="196" stroke="#333" marker-end="url(#dot)"/>
+      <text x="436" y="146">Canard foreplane (lifting)</text>
+      <line x1="320" y1="120" x2="356" y2="132" stroke="#333" marker-end="url(#dot)"/>
+      <text x="170" y="116">Fwd tilting ducted fan Ø≈9 m</text>
+      <line x1="690" y1="34" x2="640" y2="50" stroke="#333" marker-end="url(#dot)"/>
+      <text x="696" y="38">Aft tilting ducted fan Ø≈10 m</text>
+      <line x1="760" y1="130" x2="700" y2="160" stroke="#333" marker-end="url(#dot)"/>
+      <text x="766" y="126">Forward-swept main wing (composite,</text>
+      <text x="766" y="142" fill="#555">aeroelastically tailored, X-29 style)</text>
+      <line x1="930" y1="206" x2="868" y2="218" stroke="#333" marker-end="url(#dot)"/>
+      <text x="936" y="202">Twin fins moved outboard</text>
+      <text x="936" y="218" fill="#555">(clear the ramp opening)</text>
+      <line x1="930" y1="300" x2="852" y2="300" stroke="#333" marker-end="url(#dot)"/>
+      <line x1="930" y1="252" x2="806" y2="271" stroke="#333" marker-end="url(#dot)"/>
+      <text x="936" y="250">2 dorsal cruise turbofans</text>
+      <text x="936" y="266" fill="#555">(~130 kN each, exhaust between fins)</text>
+      <text x="936" y="296">Rear ramp + upper aft door</text>
+      <text x="936" y="312" fill="#555">in upswept aft body</text>
+      <line x1="930" y1="400" x2="866" y2="350" stroke="#333"/>
+      <text x="936" y="404">Closed composite hull box</text>
+      <text x="936" y="420" fill="#555">(no open pod bay: stiffer, lighter)</text>
+      <text x="510" y="243" font-size="12" font-weight="bold" fill="#f0d264" text-anchor="middle">INTERNAL HOLD · palletised mission modules</text>
+      <line x1="505" y1="400" x2="505" y2="314" stroke="#333"/>
+      <text x="440" y="416">CG (hold centred here)</text>
+      <text x="300" y="512" fill="#c0392b">canard lift line</text>
+      <text x="672" y="500" fill="#c0392b">wing lift line</text>
+    </g>
+
+    <!-- scale bar -->
+    <g transform="translate(940,520)">
+      <line x1="0" y1="0" x2="90" y2="0" stroke="#222" stroke-width="3"/>
+      <line x1="0" y1="-6" x2="0" y2="6" stroke="#222" stroke-width="2"/>
+      <line x1="45" y1="-4" x2="45" y2="4" stroke="#222" stroke-width="2"/>
+      <line x1="90" y1="-6" x2="90" y2="6" stroke="#222" stroke-width="2"/>
+      <text x="45" y="22" font-size="12" text-anchor="middle">10 m</text>
+      <text x="0" y="44" font-size="12" fill="#555">Length ≈ 76 m · span ≈ 55 m</text>
+    </g>
+  </g>
+
+  <!-- ================= SIDE VIEW ================= -->
+  <text x="40" y="735" font-size="15" font-weight="bold" fill="#333">SIDE VIEW (landed, kneeling, ramp down, cutaway hold)</text>
+  <g transform="translate(0,40)">
+    <!-- ground -->
+    <rect x="0" y="928" width="1200" height="80" fill="#d9d3c3"/>
+    <line x1="0" y1="928" x2="1200" y2="928" stroke="#8a826e" stroke-width="2"/>
+
+    <g transform="translate(0,80)">
+      <!-- dorsal cruise turbofan (side) -->
+      <polygon points="792,704 905,698 905,724 792,720" fill="url(#plume)"/>
+      <rect x="722" y="720" width="36" height="8" fill="#3a3f45"/>
+      <rect x="676" y="700" width="116" height="24" rx="12" fill="#8f969e" stroke="#3a3f45" stroke-width="2"/>
+      <ellipse cx="680" cy="712" rx="5" ry="11" fill="#2a2e33"/>
+      <line x1="740" y1="702" x2="740" y2="722" stroke="#3a3f45" stroke-width="1.5"/>
+      <!-- fin -->
+      <path d="M780,736 L836,650 L874,650 L872,748 Z" fill="#2b5a28" stroke="#1f441d" stroke-width="2"/>
+      <text x="846" y="712" font-size="34" font-weight="bold" fill="#c0392b" text-anchor="middle">2</text>
+
+      <!-- hull with upswept aft body -->
+      <path d="M180,795 C184,752 232,732 300,728 L600,720 C700,722 800,734 872,748 L878,768 L700,818 L290,820 C220,820 182,812 180,795 Z"
+            fill="url(#hullSide)" stroke="#1f441d" stroke-width="2.5"/>
+      <!-- cockpit -->
+      <path d="M200,768 Q226,742 278,738 L282,758 Q240,760 208,780 Z" fill="#1d2b3a"/>
+
+      <!-- cutaway hold -->
+      <path d="M300,762 L700,758 L700,814 L300,816 Z" fill="#1f2a1f" opacity="0.55"/>
+      <rect x="300" y="758" width="400" height="58" fill="none" stroke="#f0d264" stroke-width="2" stroke-dasharray="8 4"/>
+      <g fill="#c9a632" stroke="#8a7020" stroke-width="1.5" opacity="0.9">
+        <rect x="314" y="782" width="84" height="32" rx="3"/>
+        <rect x="412" y="776" width="84" height="38" rx="3"/>
+        <rect x="518" y="786" width="84" height="28" rx="3"/>
+      </g>
+      <line x1="300" y1="815" x2="700" y2="815" stroke="#f0d264" stroke-width="2"/>
+
+      <!-- open aft door (swung up inside upswept tail) -->
+      <path d="M704,812 L866,770" stroke="#111" stroke-width="5"/>
+      <path d="M720,808 L846,746" stroke="#3a3f45" stroke-width="4" stroke-dasharray="6 3"/>
+
+      <!-- canard + wing edge-on -->
+      <path d="M326,752 L408,748 L404,756 L330,758 Z" fill="#1f441d"/>
+      <path d="M556,752 L766,758 L760,766 L560,762 Z" fill="#1f441d"/>
+
+      <!-- fans (shown in hover position) + cruise tilt ghost -->
+      <rect x="336" y="740" width="84" height="26" rx="5" fill="#9aa1aa" stroke="#3a3f45" stroke-width="3"/>
+      <rect x="547" y="746" width="94" height="28" rx="5" fill="#9aa1aa" stroke="#3a3f45" stroke-width="3"/>
+      <ellipse cx="594" cy="730" rx="14" ry="47" fill="none" stroke="#3a3f45" stroke-width="1.5" stroke-dasharray="5 4"/>
+      <ellipse cx="378" cy="724" rx="13" ry="42" fill="none" stroke="#3a3f45" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+      <!-- ramp down -->
+      <path d="M700,818 L826,845 L825,848 L698,822 Z" fill="#555" stroke="#222" stroke-width="2"/>
+
+      <!-- kneeling gear -->
+      <g stroke="#444" stroke-width="6" stroke-linecap="round">
+        <line x1="300" y1="818" x2="300" y2="834"/>
+        <line x1="560" y1="818" x2="560" y2="834"/>
+        <line x1="630" y1="818" x2="630" y2="834"/>
+      </g>
+      <g fill="#222">
+        <circle cx="300" cy="837" r="11"/><circle cx="560" cy="837" r="11"/><circle cx="630" cy="837" r="11"/>
+      </g>
+    </g>
+
+    <!-- rescue vehicle driving out -->
+    <g>
+      <rect x="866" y="890" width="96" height="28" rx="5" fill="url(#veh)" stroke="#8a7020" stroke-width="2"/>
+      <path d="M940,890 L948,872 L962,872 L962,890 Z" fill="#1d2b3a" stroke="#8a7020" stroke-width="1.5"/>
+      <circle cx="886" cy="920" r="8" fill="#222"/><circle cx="944" cy="920" r="8" fill="#222"/>
+      <line x1="975" y1="905" x2="1010" y2="905" stroke="#555" stroke-width="2" marker-end="url(#arr)"/>
+    </g>
+
+    <!-- side callouts -->
+    <g font-size="13" fill="#222">
+      <line x1="240" y1="964" x2="300" y2="926" stroke="#333" marker-end="url(#dot)"/>
+      <text x="90" y="980">Short kneeling gear: floor ≈ 2 m off ground</text>
+      <line x1="790" y1="964" x2="770" y2="918" stroke="#333" marker-end="url(#dot)"/>
+      <text x="720" y="980">Rear loading ramp ≈ 13 m, ≈ 14°</text>
+      <line x1="455" y1="964" x2="455" y2="888" stroke="#333" marker-end="url(#dot)"/>
+      <text x="370" y="980">Cutaway: hold with mission modules on roller floor</text>
+      <line x1="560" y1="756" x2="586" y2="778" stroke="#333"/>
+      <text x="400" y="752">Fans tilt fwd for transition, feathered in jet cruise (dashed)</text>
+      <text x="866" y="868" fill="#555">rescue vehicle</text>
+      <line x1="904" y1="752" x2="800" y2="782" stroke="#333" marker-end="url(#dot)"/>
+      <text x="910" y="748">Cruise jet: high on the body,</text>
+      <text x="910" y="764" fill="#555">exhaust clear of ramp and people</text>
+      <text x="990" y="790" fill="#555">Cruise ≈ Mach 0.7 (jets)</text>
+      <text x="990" y="806" fill="#555">VTOL gross ≈ 150 t</text>
+      <text x="990" y="822" fill="#555">Payload ≈ 28 t VTOL</text>
+      <text x="990" y="838" fill="#555">≈ 49 t STO · 1,500 km</text>
+    </g>
+  </g>
+</svg>
