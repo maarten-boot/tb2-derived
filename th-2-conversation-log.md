@@ -276,3 +276,23 @@ so, drop it.
   ~4,300 m³ hold, VTOL + STO in one airframe, water.
 - Reframed as a short-strip bulk lifter for the last few hundred km. Notes §21,
   D11 updated.
+
+### 27. Is "Gross 200 t / 270 t" still correct?
+**Answer:** Yes. 200 t is the VTOL limit at the 2,500 m / 40 °C design point
+(≈ 228 t at sea level); 270 t is the structural STO limit (strip sim: ≤ 700 m in
+all conditions). What changed is the empty weight (182 t), leaving ~18 t for
+fuel + payload in VTOL. Labels in README and notes §0.1 made explicit.
+
+### 28. Is "Thunderbird" still protected? Reduce it to TB2?
+**Answer (not legal advice):**
+- The episodes and the craft design are copyrighted (UK film copyright: 70 years
+  after the last key author's death; Gerry Anderson d. 2012) and held by
+  ITV Studios.
+- The name is protected by trademark (use in trade), not copyright.
+- "TB2" is still a clear reference; what lowers risk is framing: a non-commercial
+  study, credited, not affiliated.
+**Done:**
+- Current titles → "TB2" (notes, scripts, fan-tilt and wing-options sheets,
+  re-rendered).
+- README keeps one credited reference and adds a disclaimer.
+- Archived drawings and history sections left unchanged as record.

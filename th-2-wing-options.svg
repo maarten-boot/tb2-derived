@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1200" height="600" font-family="Helvetica, Arial, sans-serif">
 <rect width="1200" height="600" fill="#f7f7f4"/>
-<text x="30" y="42" font-size="24" font-weight="bold" fill="#222">Thunderbird 2 — options for more lifting area</text>
+<text x="30" y="42" font-size="24" font-weight="bold" fill="#222">TB2 — options for more lifting area</text>
 <text x="30" y="66" font-size="14" fill="#555">Plan views, same scale, nose left. Baseline = v3 compound (canard + forward-swept wing, 4 lift fans, 2 dorsal cruise jets).</text>
 <rect x="20" y="90" width="280" height="470" rx="10" fill="#fff" stroke="#ccc"/>
 <text x="32" y="116" font-size="14" font-weight="bold" fill="#222">A · Bigger-span main wing</text>

@@ -1,6 +1,6 @@
 # tb2-derived
 
-Designs derived from Thunderbird 2 (*Thunderbirds*, 1965), playing "what if" scenarios:
+Designs inspired by Thunderbird 2 from *Thunderbirds* (1965), referred to here as **TB2**, playing "what if" scenarios:
 what would it take to make TB2 a physically plausible heavy-lift VTOL rescue transport?
 
 ![Current design](th-2-heavy.png)
@@ -14,7 +14,9 @@ already cover it (notes §19).
 |---|---|
 | Layout | Tandem wing + wide blended body |
 | Lift | 6 × Ø14 m tilting ducted fans in a ladder frame |
-| Gross (VTOL / STO) | 200 t / 270 t |
+| Gross VTOL | 200 t at 2,500 m / 40 °C (≈ 228 t at sea level) |
+| Gross STO | 270 t (structural limit) |
+| Empty | ~182 t, so VTOL leaves ~18 t for fuel + payload |
 | Cruise | ~330 kn |
 | Hold | 50 × 20 m, 3 corridors (vehicles, small helicopters, livestock, people) |
 | VTOL payload up to 2,500 m / 40 °C (300 km shuttle) | ~9 t (open decision D10) |
@@ -48,3 +50,9 @@ python3 th-2-strip.py    # take-off / landing distances per condition
 
 Edit `VARIANTS` in `th-2-sizing.py` to try other configurations; `th-2-strip.py`
 imports the same variants, physics and margins.
+
+## Disclaimer
+Non-commercial fan / engineering study. Not affiliated with or endorsed by the
+rights holders. *Thunderbirds* and Thunderbird 2 are created by Gerry and Sylvia
+Anderson; the series and its trademarks belong to their respective owners
+(currently ITV Studios).

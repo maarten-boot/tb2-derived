@@ -1,4 +1,4 @@
-# Thunderbird 2 redesign - first-order STO / STOL strip-length estimate (see th-2-re-design-ideas.md sections 11, 18)
+# TB2 redesign - first-order STO / STOL strip-length estimate (see th-2-re-design-ideas.md sections 11, 18)
 # Point-mass simulation: fans tilted forward by a fixed angle (best angle searched), wing+body lift,
 # ground roll to lift-off, then airborne to 15 m (50 ft). Landing: steep approach + braked roll.
 # Variants, physics and margins come from th-2-sizing.py so the two scripts can't drift apart.

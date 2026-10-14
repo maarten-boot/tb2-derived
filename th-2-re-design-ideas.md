@@ -1,4 +1,4 @@
-# Thunderbird 2 — "Flyable" Redesign Ideas
+# TB2 — "Flyable" Redesign Ideas
 
 Working notes on turning the original *Thunderbirds* (1965) Thunderbird 2 into a
 physically plausible heavy-lift VTOL transport, while keeping the spirit of the bulky
@@ -38,7 +38,7 @@ green hull.
 | Size | ~82 m long, ~66 m span, body ~26 m wide, fins ~25 m high |
 | Lift fans | 6 × Ø14 m tilting ducted in ladder bays (pivots on inner + outer rails, z ≈ 9 m); also cruise propulsors |
 | Cruise | fans only, ~330 kn, L/D ~9 |
-| Gross | 200 t VTOL / 270 t STO (structure for 270 t at 2.0 g) |
+| Gross | VTOL 200 t at the 2,500 m / 40 °C design point (≈ 228 t at sea level); STO 270 t structural limit (2.0 g) |
 | Empty | ~182 t (incl. ~15 t rails, ~9 t hold, ~2 t soft-field gear) |
 | Hold | 50 × 20 m, 3 corridors (centre 7 × 5 m high, sides 6 × 4.2 m), ≈ 4,300 m³, 3 rear ramps |
 | VTOL payload (up to 2,500 m / 40 °C) | **~9 t** (300 km shuttle) / none (1,500 km) |

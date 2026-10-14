@@ -1,4 +1,4 @@
-# Thunderbird 2 redesign - rough first-order sizing model (see th-2-re-design-ideas.md sections 8-14, 18, 19)
+# TB2 redesign - rough first-order sizing model (see th-2-re-design-ideas.md sections 8-14, 18, 19)
 # Run: python3 th-2-sizing.py   - edit VARIANTS (shared with th-2-strip.py) to try variants.
 import math
 g, R_AIR = 9.81, 287.05
