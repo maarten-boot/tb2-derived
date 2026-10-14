@@ -1,6 +1,6 @@
 # tb2-derived
 
-Designs inspired by Thunderbird 2 from *Thunderbirds* (1965), referred to here as **TB2**, playing "what if" scenarios:
+Designs inspired by TB2 from *the film series* (1965), referred to here as **TB2**, playing "what if" scenarios:
 what would it take to make TB2 a physically plausible heavy-lift VTOL rescue transport?
 
 ![Current design](th-2-heavy.png)
