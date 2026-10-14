@@ -135,3 +135,56 @@ high legs (too impractical).
 - Notes §13.
 - PNG re-render was briefly blocked by a full root disk; the user freed space and
   it was completed.
+
+### 17. Are the containers to scale? → maximise the hold
+**User:** Containers look small. Then: maximise the hold for vehicles, small
+helicopters, livestock and people; a central wall, or 2 walls with doors (3
+corridors), is fine.
+**Answer / done:**
+- The containers were to scale; the hold was only ~1 % of the body.
+- New hold:
+  - Heavy: 50 × 20 m, 3 corridors (centre 7 × 5 m, sides 6 × 4.2 m),
+    ~4,300 m³, 3 ramps. Front wing moved to mid height, above the hold.
+  - Fast: 44 × 9.5 m, 2 corridors, ~830 m³.
+- Floor + walls cost ~9 t / ~4 t:
+  - Heavy VTOL shuttle 36 → 27 t, STO 105 → 96 t.
+  - Fast 14 → 10 t.
+- `th-2-sizing.py` gains `hold_t`. Drawing v4 (v3 kept). Notes §14, D7 decided,
+  E8 added (hold centre ahead of the CG).
+
+### 18. Could this design land on water?
+**Answer:** Yes. VTOL avoids the seaplane problem (high-speed planing).
+- Floating draft is only ~0.13 m (Heavy) / ~0.18 m (Fast) if watertight; very
+  stable.
+- Needs: sealed lower hull and ramps, chined bottom, spray-proof marinised
+  engines.
+- The ramp can work as a boat slipway (floods; nod to TB4).
+- VTOL only on water, sea state ≤ ~4–5, ~1–3 t cost.
+- Bonus: snorkel-refilled firefighting tank.
+- Notes §15, open decision D8.
+
+### 19. Would a second level help, or be too heavy?
+**Answer:** A fixed second deck adds ~6–9 t (Heavy VTOL shuttle 27 → ~18–21 t)
+but little useful capacity: payload weight, not floor area, is the limit. A full
+96 t STO load of people, cattle or sheep already fits on the 950 m² main deck. The
+deck also clashes with the front-wing carry-through. Useful only for mixed loads
+(people above vehicles/animals). Recommendation: removable mezzanine /
+multi-deck modules on the floor rails, attached to the corridor walls, carried
+only when needed. Notes §16, decision D9.
+
+### 20. Add length / height / width arrows on the 3 views
+**Done:** `th-2-variants` v4 now has dimension arrows:
+- Top: length, span, body width.
+- Side: overall height to the fin tops, body height, hold length.
+- Front: span, height, body width, hold width, fan-pivot height.
+- Values: Heavy 82 × 66 m, 25 m high, body 26 × 14 m, hold 50 × 20 m, pivots 9 m.
+  Fast 70 × 62 m (folded 37 m), 15 m high, body 12 × 10 m, hold 44 m, pivots 7 m.
+
+### 21. "We could even transport prefab houses"
+**Answer:** Yes.
+- Modular house modules (10–20 t) fit by size (the 7 × 5 m centre corridor takes
+  even double-wide units); weight limits them to 1–2 per VTOL trip, ~5–6 per STO.
+- Container homes: ~5 VTOL / ~16–20 STO.
+- Flat-pack emergency shelters are the ideal match (light + bulky): ~150 per VTOL
+  shuttle, ~500 per STO flight (homes for ~2,500 people).
+- Notes §17.

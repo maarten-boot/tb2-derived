@@ -15,8 +15,8 @@ green hull.
 **Files**
 | File | What |
 |---|---|
-| `th-2-variants.svg/.png` | **Current** drawing (v3): TB2-H Heavy + TB2-F Fast, top + side + front views, ladder-frame fans, same scale |
-| `th-2-variants-v2.*`, `-v1.*` | Previous variants drawings (v2: 6 fans on wings, v1: 4 fans) |
+| `th-2-variants.svg/.png` | **Current** drawing (v4): TB2-H Heavy + TB2-F Fast, top + side + front views with dimension arrows, ladder-frame fans, maximised corridor hold, same scale |
+| `th-2-variants-v3.*`, `-v2.*`, `-v1.*` | Previous variants drawings (v3: small hold, v2: 6 fans on wings, v1: 4 fans) |
 | `th-2-wing-options.svg/.png` | Lift-area options A–D compared |
 | `th-2-fan-tilt.svg/.png` | How the fans tilt: sequence, structural issues, mounting options, Heavy ladder-frame proposal |
 | `th-2-re-design.svg/.png` | Single-aircraft concept v3 (compound, ramp), before the H/F split |
@@ -39,10 +39,10 @@ green hull.
 | Lift fans | 6 × Ø14 m tilting ducted in ladder bays (pivots on inner + outer rails, z ≈ 9 m); also cruise propulsors | 6 × Ø10 m tilting ducted in ladder bays (z ≈ 7 m), feathered in cruise |
 | Cruise | fans only, ~330 kn | 2 dorsal turbofans ~160 kN, ~420 kn (Mach 0.7) |
 | Gross | 200 t VTOL / 270 t STO (structure for 270 t at 2.0 g) | 100 t VTOL / 125 t STO |
-| Empty | ~156 t | ~83 t |
-| Hold | 4 × 20 ft ISO containers (2 × 2), 13.5 × 6.0 × 3.3 m, rear ramp | 2 × 20 ft in line, 13.5 × 3.2 × 3.3 m, rear ramp |
-| VTOL payload (up to 2,500 m / 40 °C) | ~36 t (300 km shuttle) / ~12 t (1,500 km) | ~14 t / ~5 t |
-| STO payload | ~105 t / ~72 t | ~39 t / ~28 t |
+| Empty | ~165 t (incl. ~9 t hold floor + walls) | ~87 t (incl. ~4 t) |
+| Hold | 50 × 20 m, 3 corridors (centre 7 × 5 m high, sides 6 × 4.2 m), ≈ 4,300 m³, 3 rear ramps | 44 × 9.5 m, 2 corridors 4.6 × 4.0 m, ≈ 830 m³, 2 rear ramps |
+| VTOL payload (up to 2,500 m / 40 °C) | ~27 t (300 km shuttle) / ~3 t (1,500 km) | ~10 t / ~1 t |
+| STO payload | ~96 t / ~63 t | ~35 t / ~24 t |
 | Strip (planning) | ≤ 700 m; vertical at lowland sites | ≤ 600 m; vertical at lowland sites |
 | Downwash | ~45 m/s | ~44 m/s |
 | Gear | ~22 main wheels (soft strips) | ~10 main wheels |
@@ -69,6 +69,7 @@ green hull.
 | Rescue hoist | Not from the rear ramp; hoist/hook at CG or land and drive out | 10 |
 | Pod designs | Original pod-on-high-legs dropped entirely (impractical) | 13 |
 | Fan mounting | Ladder frame for both variants (provisional, D6) | 12, 13 |
+| Hold | Maximised: vehicles, small helicopters, livestock, people; corridor walls with doors (D7) | 14 |
 
 ### 0.3 Open questions (the only live list)
 **Decisions for the user**
@@ -77,6 +78,9 @@ green hull.
 - [ ] **D3** Fan load split: 6 equal fans balanced by blade pitch? (§10.5 Q9)
 - [ ] **D4** Heavy middle fans: tilting, or fixed (hover only, dead weight in cruise)? (§10.7)
 - [ ] **D5** A future light high-altitude variant for Andes / Himalaya? (§10.4, §10.7)
+- [ ] **D8** Water capability: design both variants to land/float/take off vertically on water (watertight lower hull, spray-proof engines, ramp as boat slipway)? (§15)
+- [ ] **D9** Second level: no fixed deck; use removable mezzanine / multi-deck modules only when a mission needs them? (§16)
+- [x] **D7** Maximise the hold (user decision, §14).
 - [x] **D6** *(provisionally adopted in drawing v3, §13)* Fan mounting: adopt the Heavy "ladder frame" (fans alternate with wings, pivots on inner + outer rails) and, for the Fast, tip spindles at canard / H-tail + a fork bay for the wing fans? (§12)
 
 **Engineering checks**
@@ -86,6 +90,7 @@ green hull.
 - [ ] **E4** Add gear weight (22 / 10 main wheels) and ladder-frame rail weight to `th-2-sizing.py`. (§11.5, §13)
 - [ ] **E5** Heavy footprint (~64 m span) at rescue sites; booms and sponsons structure. (§10.7)
 - [ ] **E6** Fast with ~34 m canard and H-tail: still "slim"? Drag impact on Mach 0.7. (§10.7)
+- [ ] **E8** Heavy hold centre (x ≈ 37 m) lies ahead of the CG (x ≈ 46 m): loading rules / trim range, or shift the hold aft. (§14)
 - [ ] **E7** Downwash: people at rescue sites, open ramp area in hover, brown-out and debris on unpaved strips. (§4, §5.5, §11.5)
 
 **Deferred**
@@ -778,3 +783,157 @@ the V-22).
   (was ≈ 42 m).
 - Rail weight (4 rails per aircraft, ~70 m long each) is not yet in the sizing
   model → E4.
+
+---
+
+## 14. Maximised hold with corridors (2026-10-14, decision D7)
+
+**Why:** the drawing showed the old hold used ~1 % of the Heavy's body (270 m³ in a
+~25,000 m³ envelope); a C-17 hold is twice that in a smaller aircraft.
+**User:** maximise the hold to practical measures for normal vehicles, small
+helicopters, livestock and people. A central wall, or two walls with doors giving
+3 corridors, is fine for structure.
+
+**Why walls work:** a wide, flat body can't use a round pressure hull, so it
+needs internal walls/ties anyway. This is the blended-wing-body "multi-bay"
+layout (e.g. Boeing BWB studies). The walls carry body bending and tie the flat
+skins; door openings every ~12 m keep the corridors connected.
+
+### 14.1 Heavy (drawing v4)
+| | |
+|---|---|
+| Hold floor | x ≈ 12–62 m (50 m) behind the cockpit, + ramp area to ~76 m |
+| Corridors | **centre 7 m wide × 5.0 m high**; **2 sides 6 m wide × 4.2 m high**; two walls with doors |
+| Volume | ≈ 4,300 m³ (16× the old hold, ~8× a C-17) |
+| Ramps | 3 rear ramps, one per corridor (smaller, lighter than one 20 m ramp; redundant) |
+| Structure change | front wing moved from low to **mid (z ≈ 8.5 m), above the hold ceiling**, so its carry-through no longer cuts the hold; rear wing stays high |
+| Engines | turboshafts in the rails / fan stations, not in the body |
+| Gear | sponsons along the lower sides, outside the corridors |
+
+What fits (centre corridor): 2 trucks abreast (2.55 m wide, up to 4.0 m high), small
+helicopters (e.g. H125 class, ~3.3 m high, rotor folded), fire engines.
+Side corridors: 2 × 20 ft containers abreast, livestock pens, seats or stretchers.
+
+### 14.2 Fast
+- Hold x ≈ 11–55 m (44 m), 9.5 m wide, **one central wall → 2 corridors 4.6 m ×
+  4.0 m**, ≈ 830 m³, 2 rear ramps.
+- The canard and wing carry-throughs (z ≈ 7 m) pass above the 4 m ceiling.
+- The Fast cruises at FL250, so the hold must be pressurised; the central wall
+  also ties the flat sides.
+
+### 14.3 Cost (in `th-2-sizing.py`, `hold_t`)
+- Heavy-duty floor in the vehicle lanes, light-duty floor elsewhere, plus corridor
+  walls: **≈ +9 t Heavy, ≈ +4 t Fast** (rough estimate; partly offset by
+  wall-tied skins).
+
+| Payload | Heavy before → now | Fast before → now |
+|---|---|---|
+| VTOL, 300 km shuttle | 36 → **27 t** | 14 → **10 t** |
+| VTOL, 1,500 km | 12 → **3 t** | 5 → **1 t** |
+| STO, 300 / 1,500 km | 105 / 72 → **96 / 63 t** | 39 / 28 → **35 / 24 t** |
+
+**Volume is now never the limit; weight is.** Rough capacities in a VTOL shuttle
+(Heavy ~27 t): ~250 people with kit, ~50 cattle, 2–3 trucks, a small helicopter
+plus vehicles. On STO (~96 t): ~900 people, ~190 cattle, 8–10 trucks.
+The 1,500 km VTOL mission is now marginal: the doctrine "STO to a strip, VTOL
+shuttle from there" matters even more.
+
+### 14.4 Notes
+- The Heavy's hold centre (x ≈ 37 m) is ahead of the CG / middle fans (x ≈ 46 m),
+  so heavy items go aft and light items forward; loading rules and trim → **E8**.
+- The Heavy can cruise unpressurised at ≤ 3,000 m (fans, ~330 kn), which suits
+  livestock and the huge flat hold.
+
+---
+
+## 15. Could it land on water? (2026-10-14)
+
+**Short answer: yes, surprisingly well, because it lands vertically.** The hard
+part of seaplanes is the high-speed touch-down and take-off run (planing hull, step,
+slamming loads). A VTOL aircraft hovers down to near-zero speed and simply floats.
+(TB2 in the series set down on water to launch Thunderbird 4 from its pod.)
+
+| | Heavy | Fast |
+|---|---|---|
+| Water displaced at VTOL weight | ~195 m³ | ~98 m³ |
+| Draft on its flat bottom (if watertight) | **~0.13 m** | **~0.18 m** |
+| Fan ducts above water (hover position) | ~7.6 m | ~5.8 m |
+| Roll stability (metacentric radius) | ~370 m (barge-like) | ~57 m |
+
+**What it needs**
+- **Watertight lower hull** and ramp seals, bilge pumps, sea anchor, mooring points.
+- **A chined / shallow-V bottom** instead of dead flat, against wave slamming
+  while floating (the chines are already there).
+- **Spray-tolerant fans and engines.** ~45 m/s downwash onto water makes heavy
+  spray: salt erosion and engine ingestion. Needs marinised engines (as on naval
+  helicopters), inlet spray shields, fresh-water wash. The composite airframe
+  itself doesn't corrode.
+- **Ramp as a boat slipway:** with the ramp lowered into the water, launch and
+  recover rescue boats or amphibious vehicles. Ideal for floods.
+
+**Limits**
+- **VTOL only on water.** No STO from water without a planing hull and step
+  (not worth the weight).
+- **Sea state ~4–5** max to keep waves off the ramp sill and rails (rails ~7–9 m up).
+- A floating Heavy at 0.13 m draft drifts like a barge in wind: needs a sea anchor.
+- Cost: sealing, pumps, marinisation, maybe ~1–3 t. → **D8**.
+
+**Bonus idea:** firefighting. Hover over water and refill an internal tank with a
+snorkel pump (like helicopter "Bambi" snorkels); the hold volume allows a very
+large tank.
+
+---
+
+## 16. Would a second level help? (2026-10-14)
+
+**Short answer: a fixed second deck mostly adds weight, not capacity.** The hold is
+already limited by payload *weight*, not floor area or volume.
+
+| | Value |
+|---|---|
+| Heavy main deck | ~950 m² (50 × 19 m), ~4,300 m³ |
+| Average load density at full payload | VTOL shuttle 27 t → ~28 kg per m² of floor; STO 96 t → ~100 kg/m² |
+| Floor area needed for a full 96 t STO load | people ~580 m², cattle ~350 m², sheep ~670 m²: **all fit on the main deck** |
+| Fixed 2nd deck, side corridors only (600 m²) | ≈ +6 t |
+| Fixed 2nd deck, full width (950 m²) | ≈ +9 t |
+| Effect on Heavy VTOL shuttle payload | 27 → ~21 t (side) / ~18 t (full) |
+
+**Where a second level *does* help**
+- **Mixed loads:** vehicles or livestock below, people above, kept separate
+  (hygiene, safety).
+- Low-density cargo that can't be stacked (small animals, fragile goods).
+- Stretcher racks for medevac (standard 3-high racks, no deck needed).
+
+**Height check (Heavy):** lower deck 4.2 m + floor 0.5 m + upper deck ~2.5 m
+needs ~7.2 m (z 2.3 → 9.5). That fits under the body top, but it clashes with the
+front-wing carry-through at z ≈ 8–9 m. Either the front wing moves up to ~10 m
+(only ~2.5 m below the rear wing), or the upper deck is interrupted there.
+**Fast:** 8 m body, 4 m hold, so no room for a real second deck (racks only).
+
+**Recommendation → D9:** no fixed deck. Use **removable mezzanine / multi-deck
+modules** (palletised passenger decks, double-deck livestock stalls, stretcher
+racks) that roll in on the floor rails and lock to the corridor walls. Their
+weight counts only when carried, as payload. The corridor walls make good
+attachment points.
+
+---
+
+## 17. Use case: prefab housing (2026-10-14)
+
+User idea: transport prefab houses. Rough industry figures, not a specific product:
+
+| Prefab type | Typical size / weight | Heavy (VTOL ~27 t / STO ~96 t) | Fast (VTOL ~10 t / STO ~35 t) |
+|---|---|---|---|
+| Modular house module (wood frame) | ~3–4.3 m wide, 3–3.9 m high, 10–15 m long, ~10–20 t | centre corridor 7 × 5 m fits any; sides take ≤ ~4 m wide. VTOL 1–2, STO ~5–6 | ≤ 4.3 m wide fits a corridor; ~1 on STO |
+| Container home (20 ft) | 6 × 2.4 × 2.6 m, ~3–6 t fitted | VTOL ~5, STO ~16–20 | VTOL 2, STO ~6 |
+| Flat-pack emergency shelter (Better-Shelter type, ~17 m²) | ~150–200 kg, ~1–2 m³ packed | VTOL ~150 (homes for ~750 people), STO ~500 (~2,500 people) | VTOL ~50, STO ~180 |
+
+- **Flat-pack shelters are the ideal cargo:** light and bulky, so they fill the
+  4,300 m³ hold at about the same point as the weight limit.
+- House modules fit easily by size; weight limits them to 1–2 per VTOL trip.
+  The 7 m centre corridor takes even "double-wide" units that need road escorts.
+- Loading: modules on skids over the floor rails or on a low trailer through the
+  corridor's own ramp.
+- Relief chain: Heavy STO load of ~500 shelters / ~16 container homes to the
+  nearest strip, then VTOL shuttles of modules or shelter batches into the
+  cut-off area.

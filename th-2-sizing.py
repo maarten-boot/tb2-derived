@@ -22,7 +22,7 @@ def hover_power(W, r, A):          # W in kg; ducted fans, expanded wake, 80 % e
     T = 1.15*W*g
     return T**1.5/(2*math.sqrt(r*A))/0.80
 
-def run(name, W_t, fans, struct_frac, jets, LD, cruise, sto_gain, design=("SL ISA", 0, 15), quiet=False):
+def run(name, W_t, fans, struct_frac, jets, LD, cruise, sto_gain, design=("SL ISA", 0, 15), quiet=False, hold_t=0.0):
     W = W_t*1000
     nf = len(fans)
     A = sum(math.pi*(d/2)**2 for d in fans)
@@ -40,6 +40,7 @@ def run(name, W_t, fans, struct_frac, jets, LD, cruise, sto_gain, design=("SL IS
     W_sto = W*(1+sto_gain)
     m_struct = 0.04*W_sto + (struct_frac-0.04)*W*(max(2.5*W, 2.0*W_sto)/(2.5*W))**0.6
     m_sys = 0.07*W + 3000
+    m_hold = hold_t*1000                           # extra floor + corridor walls for a maximised hold (notes §14)
     m_jets, Tjet = 0, 0
     if jets:
         Tjet = 0.9*W*g/LD/jets['lapse']*1.3
@@ -49,7 +50,7 @@ def run(name, W_t, fans, struct_frac, jets, LD, cruise, sto_gain, design=("SL IS
     K = cruise*LD/(0.6/3600) if jets else 0.75*LD/(g*0.28/3.6e6)
     fuel = (hover_fuel + W0*(1-math.exp(-RANGE_KM*1000/K)))*(1+RESERVE)
     fuel_sto = W_sto*(1-math.exp(-RANGE_KM*1000/K))*(1+RESERVE)
-    empty = m_shaft+m_drive+m_fans+m_struct+m_sys+m_jets
+    empty = m_shaft+m_drive+m_fans+m_struct+m_sys+m_jets+m_hold
     pay = W-empty-fuel; pay_sto = W_sto-empty-fuel_sto
     res = {'empty':empty/1000,'pay':pay/1000,'pay_sto':pay_sto/1000,'P':P_inst/1e6,'hot':{}}
     for lab,h,t in CONDITIONS:
@@ -59,7 +60,7 @@ def run(name, W_t, fans, struct_frac, jets, LD, cruise, sto_gain, design=("SL IS
     if not quiet:
         print(f"\n== {name}: {W_t} t VTOL, {nf} fans x {fans[0]} m ({A:.0f} m2), power sized for {design[0]}")
         print(f"  installed {P_inst/1e6:.0f} MW (SL) | downwash {v:.0f} m/s | fan-out capable: {'yes' if nf>=6 else 'NO'}")
-        print(f"  shafts {m_shaft/1e3:.1f} | drive {m_drive/1e3:.1f} | fans {m_fans/1e3:.1f} | struct {m_struct/1e3:.1f} | sys {m_sys/1e3:.1f} | jets {m_jets/1e3:.1f}  -> EMPTY {empty/1e3:.1f} t")
+        print(f"  shafts {m_shaft/1e3:.1f} | drive {m_drive/1e3:.1f} | fans {m_fans/1e3:.1f} | struct {m_struct/1e3:.1f} | sys {m_sys/1e3:.1f} | jets {m_jets/1e3:.1f} | hold {m_hold/1e3:.1f}  -> EMPTY {empty/1e3:.1f} t")
         print(f"  fuel {fuel/1e3:.1f} t | PAYLOAD VTOL {pay/1e3:.1f} t | STO {W_sto/1e3:.0f} t: {pay_sto/1e3:.1f} t | cruise {cruise*1.944:.0f} kn")
         for lab,p in res['hot'].items():
             print(f"    VTOL payload at {lab:32s} {p:6.1f} t")
@@ -70,5 +71,5 @@ if __name__ == "__main__":
     for rng in (1500, 300):            # long-range mission vs. VTOL shuttle from a strip
         RANGE_KM = rng
         print(f"\n############ mission {rng} km + {HOVER_MIN} min hover + {RESERVE:.0%} reserve ############")
-        run("TB2-H Heavy (B+D, fans only)", 200, [14]*6, 0.29, None, 10, 170, 0.35, MID)
-        run("TB2-F Fast (A+C, feathered fans + cruise jets)", 100, [10]*6, 0.27, {'lapse':0.32}, 11, 217, 0.25, MID)
+        run("TB2-H Heavy (B+D, fans only)", 200, [14]*6, 0.29, None, 10, 170, 0.35, MID, hold_t=9.0)
+        run("TB2-F Fast (A+C, feathered fans + cruise jets)", 100, [10]*6, 0.27, {'lapse':0.32}, 11, 217, 0.25, MID, hold_t=4.0)
