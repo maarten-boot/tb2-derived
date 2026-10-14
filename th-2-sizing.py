@@ -66,15 +66,9 @@ def run(name, W_t, fans, struct_frac, jets, LD, cruise, sto_gain, design=("SL IS
     return res
 
 if __name__ == "__main__":
-    SL  = ("SL ISA", 0, 15)
-    HOT = ("SL 50 C", 0, 50)
-    MID = ("2,500 m 40 C", 2500, 40)
-    HI  = ("4,000 m 25 C", 4000, 25)
-    print("############ TB2-H HEAVY (B+D), 200 t VTOL / 270 t STO ############")
-    run("H 4 fans (previous)", 200, [12]*4, 0.29, None, 10, 170, 0.35, SL)
-    for d in (SL, HOT, MID, HI):
-        run(f"H 6 fans", 200, [9.8]*6, 0.29, None, 10, 170, 0.35, d)
-    print("\n############ TB2-F FAST (A+C), 100 t VTOL, feathered fans ~M0.7 ############")
-    run("F 4 fans (previous, M0.77)", 100, [8]*4, 0.27, {'lapse':0.30}, 12, 239, 0.25, SL)
-    for d in (SL, HOT, MID, HI):
-        run(f"F 6 fans, feathered", 100, [6.5]*6, 0.27, {'lapse':0.32}, 11, 217, 0.25, d)
+    MID = ("2,500 m 40 C", 2500, 40)   # current design point (see notes §10.4)
+    for rng in (1500, 300):            # long-range mission vs. VTOL shuttle from a strip
+        RANGE_KM = rng
+        print(f"\n############ mission {rng} km + {HOVER_MIN} min hover + {RESERVE:.0%} reserve ############")
+        run("TB2-H Heavy (B+D, fans only)", 200, [14]*6, 0.29, None, 10, 170, 0.35, MID)
+        run("TB2-F Fast (A+C, feathered fans + cruise jets)", 100, [10]*6, 0.27, {'lapse':0.32}, 11, 217, 0.25, MID)

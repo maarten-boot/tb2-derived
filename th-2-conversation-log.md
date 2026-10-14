@@ -93,3 +93,45 @@ options for Q8/Q9.
 - Surprise: the hot-and-high power allows lowland VTOL up to ~270 t (open
   question on margins).
 - Gear flotation: Heavy needs ~22 main wheels, Fast ~10.
+
+### 14. Project moved to git repo `tb2-derived`; housekeeping
+**User:** Moved the files into the git repo; asked for a status, then housekeeping.
+**Done:**
+- `th-2-re-design-ideas.md`:
+  - New **§0 Current status**: variant summary, decisions table, and the single
+    live open-questions list (D1–D5 decisions, E1–E7 engineering checks, 1 deferred).
+  - Superseded sections marked; old checkboxes in §1–§11 now point to §0 or are
+    closed (power plant, fan-out, stop/fold fans).
+  - File index added.
+- `README.md` expanded: summary table, drawing, file index, how to run the models.
+- `th-2-sizing.py` default run now shows the current design (6 fans, 2,500 m / 40 °C,
+  1,500 km and 300 km missions) instead of old comparisons.
+
+### 15. How do the fans tilt without compromising wing strength and aerodynamics?
+**User:** Can't visualise how the 6 fans move from horizontal to vertical without
+compromising wing strength and aerodynamics.
+**Answer / done:** `th-2-fan-tilt.svg/.png`, notes §12:
+- The v2 drawing had fans on top of the wings, so they couldn't tilt and would
+  cause download.
+- Pod tilt: spanwise spindle with the drive shaft along the tilt axis.
+- Issues listed: download, whirl flutter, hard points, gyroscopic loads.
+- Mounting options: A tip spindle, B fork/ladder bay, C fan-in-body.
+- Proposed Heavy "ladder frame": fans alternate with wings, each pivots on inner +
+  outer rails.
+- New decision D6 added.
+
+### 16. Front views; drop the pod-on-legs designs
+**User:** Add front views; drop any design with the original TB2 lowering pods on
+high legs (too impractical).
+**Done:**
+- `th-2-re-design-v1.*` removed (git rm; still in history).
+- `th-2-variants` v3: top/side/front views with the ladder frame (D6 provisionally
+  adopted). The old sheet is kept as `-v2`.
+- Front view drove changes:
+  - Pivot height ≥ fan radius + 2 m (Heavy rails z ≈ 9 m, Fast z ≈ 7 m).
+  - Heavy front wing dihedral / rear wing anhedral into the rails (box seen from
+    the front).
+  - Fast fans/wing reordered so no wing is under a fan; folded span ≈ 37 m.
+- Notes §13.
+- PNG re-render was briefly blocked by a full root disk; the user freed space and
+  it was completed.

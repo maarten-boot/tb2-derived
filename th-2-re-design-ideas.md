@@ -1,17 +1,95 @@
 # Thunderbird 2 — "Flyable" Redesign Ideas
 
 Working notes on turning the original *Thunderbirds* (1965) Thunderbird 2 into a
-physically plausible heavy-lift VTOL transport, while keeping the bulky green hull
-(the pod was later replaced by an internal hold + rear ramp, see §5).
+physically plausible heavy-lift VTOL transport, while keeping the spirit of the bulky
+green hull.
 
-Concept drawing (current, v3 — compound, ramp, no pod): `th-2-re-design.svg` / `.png`.
-Earlier versions: `th-2-re-design-v2.*` (ramp, fans only).
-Wing / lift-area options sheet: `th-2-wing-options.svg` / `.png`.
-Variants sheet (TB2-H Heavy + TB2-F Fast, top + side views, same scale): `th-2-variants.svg` / `.png`.
-Original pod version: `th-2-re-design-v1.svg` / `th-2-re-design-v1.png`.
+**How this file is organised**
+- **§0 Current status**: the design as it stands now, all decisions, and the *only*
+  live open-questions list. Start here.
+- **§1 onwards: history**: each iteration in the order it happened. Numbers in early
+  sections are superseded by later ones (marked *superseded*). Old checkboxes there
+  point to §0.
+- Conversation flow: `th-2-conversation-log.md`.
 
-> Canon figures used below are approximate (sources disagree): length ≈ 76 m,
+**Files**
+| File | What |
+|---|---|
+| `th-2-variants.svg/.png` | **Current** drawing (v3): TB2-H Heavy + TB2-F Fast, top + side + front views, ladder-frame fans, same scale |
+| `th-2-variants-v2.*`, `-v1.*` | Previous variants drawings (v2: 6 fans on wings, v1: 4 fans) |
+| `th-2-wing-options.svg/.png` | Lift-area options A–D compared |
+| `th-2-fan-tilt.svg/.png` | How the fans tilt: sequence, structural issues, mounting options, Heavy ladder-frame proposal |
+| `th-2-re-design.svg/.png` | Single-aircraft concept v3 (compound, ramp), before the H/F split |
+| `th-2-re-design-v2.*` | v2 (ramp, fans only). The original pod-on-legs v1 was dropped as impractical (still in git history) |
+| `th-2-sizing.py` | Weight/payload sizing model (6 fans, hot-and-high, STO) |
+| `th-2-strip.py` | Take-off / landing strip-length simulation |
+
+> Canon figures used in §1 are approximate (sources disagree): length ≈ 76 m,
 > span ≈ 55 m, empty mass ≈ 400 t, plus pod.
+
+---
+
+## 0. Current status (2026-10-14)
+
+### 0.1 The two variants
+| | **TB2-H Heavy** | **TB2-F Fast** |
+|---|---|---|
+| Layout | Tandem wing (B) + wide blended body with chines/edge guides (D) | High-aspect folding fwd-swept wing (A) + canard + H-tail (C) |
+| Size | ~82 m long, ~66 m span, body ~26 m wide, fins ~25 m high | ~70 m long, ~62 m span (folds to ~37 m), canard/H-tail ~35 m |
+| Lift fans | 6 × Ø14 m tilting ducted in ladder bays (pivots on inner + outer rails, z ≈ 9 m); also cruise propulsors | 6 × Ø10 m tilting ducted in ladder bays (z ≈ 7 m), feathered in cruise |
+| Cruise | fans only, ~330 kn | 2 dorsal turbofans ~160 kN, ~420 kn (Mach 0.7) |
+| Gross | 200 t VTOL / 270 t STO (structure for 270 t at 2.0 g) | 100 t VTOL / 125 t STO |
+| Empty | ~156 t | ~83 t |
+| Hold | 4 × 20 ft ISO containers (2 × 2), 13.5 × 6.0 × 3.3 m, rear ramp | 2 × 20 ft in line, 13.5 × 3.2 × 3.3 m, rear ramp |
+| VTOL payload (up to 2,500 m / 40 °C) | ~36 t (300 km shuttle) / ~12 t (1,500 km) | ~14 t / ~5 t |
+| STO payload | ~105 t / ~72 t | ~39 t / ~28 t |
+| Strip (planning) | ≤ 700 m; vertical at lowland sites | ≤ 600 m; vertical at lowland sites |
+| Downwash | ~45 m/s | ~44 m/s |
+| Gear | ~22 main wheels (soft strips) | ~10 main wheels |
+| Role | Bulk to forward strip, VTOL shuttle into site | Rapid response, crews, medical, light vehicles |
+
+**Doctrine:** fly long-range to a strip (big STO payload), then short VTOL shuttles
+(~300 km). At 4,000–5,000 m (Andes / Himalaya): STO from strips only.
+
+### 0.2 Decisions so far
+| Topic | Decision | § |
+|---|---|---|
+| Pitch balance | Lifting canard / forward surface, FBW | 2 |
+| Cargo access | No pod: internal hold + rear ramp, kneeling gear | 5 |
+| Structure | Carbon composite (787 / Stratolaunch style, not Rutan foam) | 5 |
+| Jets | Not for lift (hot exhaust, fuel); cruise jets only on the Fast | 6, 7 |
+| Variants | Heavy = B+D, Fast = A+C | 8 |
+| Fast engines | Proven separate turboshafts + turbofans (no convertible engines) | 9 |
+| Heavy STO | Structure and gear built for 270 t | 9 |
+| Cargo standard | ISO 20 ft containers; Heavy 2 × 2 on one level | 10 |
+| Fast fans in cruise | Feathered, ~Mach 0.7; no experimental stop/fold | 10 |
+| Shared parts | None: optimise each aircraft | 10 |
+| Fan count | 6 fans (fan-out survivable in hover) | 10 |
+| Climate | Design point 2,500 m / 40 °C (Africa incl. highlands + warming) | 10 |
+| Rescue hoist | Not from the rear ramp; hoist/hook at CG or land and drive out | 10 |
+| Pod designs | Original pod-on-high-legs dropped entirely (impractical) | 13 |
+| Fan mounting | Ladder frame for both variants (provisional, D6) | 12, 13 |
+
+### 0.3 Open questions (the only live list)
+**Decisions for the user**
+- [ ] **D1** Lowland VTOL above 200 t: allow (reduced control margin, no fan-out cover) or cap at ~230–250 t? (§11.3)
+- [ ] **D2** Balance from empty to full hold: adopt all of hold-centred loading, fore/aft trim tanks, surfaces sized for ±4 % CG, FBW? (§10.5 Q8)
+- [ ] **D3** Fan load split: 6 equal fans balanced by blade pitch? (§10.5 Q9)
+- [ ] **D4** Heavy middle fans: tilting, or fixed (hover only, dead weight in cruise)? (§10.7)
+- [ ] **D5** A future light high-altitude variant for Andes / Himalaya? (§10.4, §10.7)
+- [x] **D6** *(provisionally adopted in drawing v3, §13)* Fan mounting: adopt the Heavy "ladder frame" (fans alternate with wings, pivots on inner + outer rails) and, for the Fast, tip spindles at canard / H-tail + a fork bay for the wing fans? (§12)
+
+**Engineering checks**
+- [ ] **E1** Fan-wake interaction front → middle → rear during transition. (§10.7)
+- [ ] **E2** Cross-shaft routing to 6 fans; drivetrain failure modes. (§10.7)
+- [ ] **E3** Fan/engine failure during the take-off roll or first 15 m: reject or continue distances. (§11.5)
+- [ ] **E4** Add gear weight (22 / 10 main wheels) and ladder-frame rail weight to `th-2-sizing.py`. (§11.5, §13)
+- [ ] **E5** Heavy footprint (~64 m span) at rescue sites; booms and sponsons structure. (§10.7)
+- [ ] **E6** Fast with ~34 m canard and H-tail: still "slim"? Drag impact on Mach 0.7. (§10.7)
+- [ ] **E7** Downwash: people at rescue sites, open ramp area in hover, brown-out and debris on unpaved strips. (§4, §5.5, §11.5)
+
+**Deferred**
+- [x] Front-view drawing: done in `th-2-variants` v3 (§13).
 
 ---
 
@@ -73,7 +151,7 @@ Original pod version: `th-2-re-design-v1.svg` / `th-2-re-design-v1.png`.
   → more efficient, and the canard stalls first, giving natural stall protection.
 - Fly-by-wire with relaxed stability; active fuel transfer for trim (Concorde-style).
 
-### C. Pod CG control
+### C. Pod CG control *(superseded: pod dropped in §5)*
 - Standardised pods with a defined CG envelope and ballast points.
 - Every pod CG must land in a narrow band under the combined lift centre **and**
   the centroid of the hover thrust.
@@ -100,7 +178,7 @@ Original pod version: `th-2-re-design-v1.svg` / `th-2-re-design-v1.png`.
 
 ---
 
-## 3. Summary spec of the concept
+## 3. Summary spec of the concept *(superseded: see §0)*
 
 | Item              | Original (canon)        | Redesign                                  |
 |-------------------|-------------------------|-------------------------------------------|
@@ -116,19 +194,18 @@ Original pod version: `th-2-re-design-v1.svg` / `th-2-re-design-v1.png`.
 
 ---
 
-## 4. Open questions / future notes
+## 4. Open questions / future notes *(historical: live list in §0.3)*
 
-- [ ] Size canard vs. wing area split so the CG margin covers empty-pod to full-pod.
-- [ ] Choose fan diameters so front/rear fan pairs share hover load in proportion
+- [→] Size canard vs. wing area split for the CG range: now **D2** in §0.3.
+- [→] Choose fan diameters so front/rear fan pairs share hover load (now **D3** in §0.3)
       to their distance from the CG.
-- [ ] Power plant: turboshaft cluster vs. hybrid-electric distributed drive vs.
+- [x] Power plant: settled on turboshafts (+ turbofans on the Fast), §9. Was: turboshaft cluster vs. hybrid-electric distributed drive vs.
       (fictional) compact nuclear.
-- [ ] One-engine-out / one-fan-out hover safety (cross-shafting like the V-22?).
-- [ ] Downwash mitigation at rescue sites: hover height, deploy pod from altitude
+- [x] One-engine-out / one-fan-out hover safety: solved with 6 fans, §10.3.
+- [→] Downwash mitigation at rescue sites (now **E7** in §0.3): hover height, deploy pod from altitude
       on winches instead of landing?
-- [ ] ~~Front view drawing~~ (deferred 2026-10-14 by user: not needed for now).
+- [→] ~~Front view drawing~~ (deferred; listed in §0.3).
 
-<!-- Append further notes below -->
 
 ---
 
@@ -196,7 +273,7 @@ Estimate for the 150 t gross concept:
   - Engines, drivetrain and systems (a large share of empty weight) don't
     benefit from composites.
 
-### 5.4 Revised estimate (150 t VTOL gross)
+### 5.4 Revised estimate (150 t VTOL gross) *(superseded: see §8–§10)*
 | Configuration                         | Empty   | Fuel  | Payload    |
 |---------------------------------------|---------|-------|------------|
 | Metal, pod version                    | ~100 t  | 25 t  | ~25 t      |
@@ -204,11 +281,11 @@ Estimate for the 150 t gross concept:
 | Composite, closed hull + ramp         | ~83 t   | 25 t  | **~40 t**  |
 | Same, STO overload (+15 % gross)      | ~83 t   | 25 t  | **~60 t**  |
 
-### 5.5 New open questions
+### 5.5 New open questions *(historical: live list in §0.3)*
 - [x] Update drawing: upswept aft body with ramp, outboard fins, kneeling gear, no pod (done 2026-10-14: `th-2-re-design.svg/.png`; v1 with pod kept as `th-2-re-design-v1.*`).
 - [x] Cargo standard: ISO 20 ft containers (decided 2026-10-14, §10).
 - [x] Hold sized for 2×2 20 ft containers (Heavy), see §10.
-- [ ] Downwash effect on the open ramp area and on people near it during hover.
+- [→] Downwash effect on the open ramp area and on people near it during hover (now **E7**).
 
 ---
 
@@ -315,9 +392,9 @@ Very rough targets:
 | Payload VTOL / STO | ~55 t / ~85 t | ~15–20 t / ~30 t |
 | Tech risk | low–medium (scale is the challenge) | higher: fans must stop and fold their blades for Mach 0.8 (research-level) |
 
-### 7.4 New open questions
+### 7.4 New open questions *(historical: live list in §0.3)*
 - [x] Lifting-area options per variant: **H = B+D, F = A+C** (decided 2026-10-14, see §8).
-- [ ] Stop/fold fan mechanism for TB2-F, or accept ~Mach 0.7 with feathered fans?
+- [x] Stop/fold fans vs. feathered: feathered, ~Mach 0.7 (§10.1).
 - [x] Shared parts: no, optimise each aircraft (decided 2026-10-14).
 - [x] Drawings for both variants (see `th-2-variants.*`).
 
@@ -384,7 +461,7 @@ F VTOL ≈ 2× a V-22 internal load, at ~1.7× V-22 speed.
    so the wing is sized for cruise. A high aspect ratio gives low induced drag
    without the drag of extra area.
 
-### 8.4 New open questions
+### 8.4 New open questions *(historical: live list in §0.3)*
 - [x] H: structure designed for 270 t STO (decided 2026-10-14, see §9).
 - [x] F: proven separate turboshafts + cruise jets (decided 2026-10-14, see §9).
 - [x] F: feathered fans, ~Mach 0.7, no experimental tech (decided 2026-10-14, §10).
@@ -401,7 +478,7 @@ F VTOL ≈ 2× a V-22 internal load, at ~1.7× V-22 speed.
   gives up ~4–5 t payload).
 - **TB2-H Heavy: structure and gear designed for the full 270 t short take-off weight.**
 
-### 9.2 Model refinements (`th-2-sizing.py`)
+### 9.2 Model refinements (`th-2-sizing.py`) *(numbers superseded by §10.4: 6 fans, hot-and-high)*
 - Landing gear (4 % of weight) is sized for the STO weight.
 - Bending structure is sized by the worse of **2.5 g at VTOL weight** or **2.0 g at
   STO overload weight**. Lower g-limits at overload weight are normal transport
@@ -430,7 +507,7 @@ F VTOL ≈ 2× a V-22 internal load, at ~1.7× V-22 speed.
 - Doctrine: Heavy = bulk to a forward strip (STO, ~95 t), then shuttle loads
   into the disaster site by VTOL (~34 t), or the Fast handles the last leg.
 
-### 9.4 Open questions (carried forward)
+### 9.4 Open questions (carried forward) *(historical: live list in §0.3)*
 - [x] F: feathered fans, ~Mach 0.7, no experimental tech (decided 2026-10-14, §10).
 - [x] H: STO strip length and rough-field capability (see §11) (gear flotation for 270 t on
       unpaved strips).
@@ -549,13 +626,13 @@ but **no VTOL at all in the highlands**.
   - Downwash ~45 m/s (bigger fans) is still well above a heavy helicopter's, so
     keep people clear.
 
-### 10.7 New open questions (from 6 fans + hot-and-high)
-- [ ] Heavy middle fans on sponsons beside the hold: width impact (~60–65 m span with Ø14 m fans).
-- [ ] Middle fans: tilting or fixed (hover only)? Fixed is lighter but is dead weight in cruise.
-- [ ] Fan-wake interaction front → middle → rear fans during transition.
-- [ ] Cross-shaft routing to 6 fans; drivetrain failure modes.
-- [ ] Fast: canard and H-tail grow to carry Ø10 m fans (~34 m span each). Still "slim"?
-- [ ] Future light high-altitude variant (Andes/Himalaya)?
+### 10.7 New open questions (from 6 fans + hot-and-high) *(historical: live list in §0.3)*
+- [→] Heavy middle fans on sponsons: width impact (now **E5**).
+- [→] Middle fans: tilting or fixed? (now **D4**)
+- [→] Fan-wake interaction during transition (now **E1**).
+- [→] Cross-shaft routing to 6 fans (now **E2**).
+- [→] Fast canard / H-tail ~34 m: still "slim"? (now **E6**)
+- [→] Future light high-altitude variant? (now **D5**)
 - [x] Q7 strip length + rough field: first estimate done, see §11.
       compared with existing aircraft (C-130J, A400M, C-17, An-72/74 USB).
 - [x] `th-2-variants` redrawn: 6 fans on side booms (H) / canard-wing-H-tail (F), container hold, more wheels (2026-10-14). Old version: `th-2-variants-v1.*`.
@@ -610,8 +687,94 @@ fan-out risk accepted" or a lower cap (~230–250 t). → open question.
 - Fast 125 t on 4 wheels = 31 t/wheel. Far too much → **~10 main wheels (5 per side)**.
 - Drawing `th-2-variants` updated accordingly.
 
-### 11.5 New open questions
-- [ ] Lowland VTOL above 200 t: allow (with reduced margins / no fan-out cover) or cap?
-- [ ] Downwash on unpaved strips during STO (dust/brown-out, debris ingestion).
-- [ ] Fan-out during take-off roll / first 15 m: reject or continue distances.
-- [ ] Gear weight for 22 / 10 main wheels (not yet in the sizing model).
+### 11.5 New open questions *(historical: live list in §0.3)*
+- [→] Lowland VTOL above 200 t (now **D1**).
+- [→] Downwash on unpaved strips (now **E7**).
+- [→] Fan-out during take-off roll (now **E3**).
+- [→] Gear weight for 22 / 10 main wheels (now **E4**).
+
+---
+
+## 12. How the fans tilt without hurting the wing (2026-10-14)
+
+Sheet: `th-2-fan-tilt.svg/.png`.
+
+**The problem:** in the `th-2-variants` v2 drawing the Heavy's fans sit *on top of*
+the wings and booms. They could not rotate there without hitting structure, and in
+hover they would blow straight down onto the wing ("download", ~10 % thrust loss on
+the V-22).
+
+### 12.1 How a pod tilts
+- Each duct rotates about a **spanwise spindle**: 0° (hover, thrust up) → ~45°
+  (transition) → 90° (cruise, thrust forward).
+- **The drive shaft runs along the tilt axis**, into a gearbox at the pivot, so
+  tilting never disconnects the drive (the V-22 principle).
+- Conversion takes ~15–30 s while accelerating; tilt actuators are synchronised
+  by fly-by-wire.
+- Left and right fans counter-rotate, so the gyroscopic moments from tilting
+  cancel out.
+- In cruise the duct is aligned with the flow and acts as a ring wing (a little lift).
+
+### 12.2 Structural / aero issues and standard fixes
+| Issue | Fix |
+|---|---|
+| Download onto a wing below the fan | No wing under any fan in plan view |
+| Cantilevered heavy spinning pod: whirl flutter | Short, stiff supports, preferably on both sides of the duct |
+| Pivot carries full thrust (1.5× in fan-out) + tilt torque | Pivot is a frame node in the torsion box |
+| Gyroscopic loads | Counter-rotating pairs, slow tilt |
+| Cruise drag of the duct | Tilt 90°, duct works as ring wing |
+
+### 12.3 Three ways to mount a tilting fan
+- **A. Tip spindle** (Bell X-22A ducts, V-22 nacelles):
+  - Proven. The wing ends where the duct starts, so there is no download.
+  - Cantilever, so flutter risk. Only works at a tip.
+  - → Fast canard tips and H-tail tips.
+- **B. Fork / ladder bay:**
+  - The duct sits between an inner and an outer rail and pivots on both, so
+    there is no cantilever. Rails + wings form a stiff ladder frame.
+  - Costs some extra rail weight and drag.
+  - → all 6 Heavy fans; the Fast's wing fans (fork bay at the wing-fold joint).
+- **C. Fan-in-body + exit louvres** (Ryan XV-5 Vertifan):
+  - No tilt mechanism, but needs deep structure. A Ø14 m fan doesn't fit
+    beside a 6 m hold (~10 m available).
+  - Limited vectoring; dead weight in cruise.
+  - → possibly smaller fixed middle fans (ties to D4).
+
+### 12.4 Proposed Heavy layout: ladder frame
+- Along each side: **front fan · front wing · middle fan · rear wing · rear fan**.
+  No wing sits under any fan.
+- Two longitudinal rails per side (inner ~14.5 m, outer ~29.5 m from the
+  centreline). Each fan pivots on both rails. The wings are the "rungs" that tie
+  the rails to the body.
+- Fan stations at ~20 / 46 / 74 m from the nose. The middle pair stays at the CG
+  above the hold.
+- Span ≈ 66 m. In cruise the front fans blow over the front wing (blown-wing bonus).
+- Front fans' wake hitting the middle/rear fans in transition remains open (E1).
+
+---
+
+## 13. Variants v3: ladder frame + front views; pod designs dropped (2026-10-14)
+
+- **User:** add front views; drop any design with the original pod on high legs
+  (too impractical). → `th-2-re-design-v1.*` removed (still in git history).
+- `th-2-variants.svg/.png` v3: top, side and **front** views of both variants,
+  redrawn with the ladder-frame fan mounting (D6, adopted provisionally).
+  The previous sheet is kept as `th-2-variants-v2.*`.
+
+### 13.1 Layout changes the front view forced
+- **Tilt clearance:** an upright fan reaches one radius below its pivot. Pivots
+  must be ≥ radius + ~2 m above the ground, or the fans hit the ground when
+  tilting (or during a rolling take-off at large tilt angles).
+  → **Heavy rails at z ≈ 9 m** (Ø14 m fans: 2 m clearance upright),
+  **Fast rails at z ≈ 7 m** (Ø10 m: 2 m clearance).
+- **Heavy:** the low front wing now rises to the rails (*dihedral*); the high rear
+  wing drops to the rails (*anhedral*). Seen from the front, the two wings and the
+  rails form a closed box: stiff, and it keeps the rails level.
+- **Fast:** reordered along each rail as front fan · canard · middle fan
+  (at CG, x ≈ 32 m) · main wing · rear fan · H-tail + twin fins on the outer rails.
+  This keeps the wing out from under every fan. The hold moved forward to the
+  new CG.
+  The wing now folds just outboard of the outer rail: **folded span ≈ 37 m**
+  (was ≈ 42 m).
+- Rail weight (4 rails per aircraft, ~70 m long each) is not yet in the sizing
+  model → E4.
