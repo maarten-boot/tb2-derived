@@ -188,3 +188,91 @@ only when needed. Notes §16, decision D9.
 - Flat-pack emergency shelters are the ideal match (light + bulky): ~150 per VTOL
   shuttle, ~500 per STO flight (homes for ~2,500 people).
 - Notes §17.
+
+### 22. Cross-check the Python models against the current design
+**Findings (no code changed yet):**
+- Fan sizes/counts, weights, design point, hold weights, cruise speeds and the
+  printed results all match notes, README and drawing.
+- Main issue: inconsistent margins.
+  - `th-2-strip.py` uses a 1.05 thrust margin and full contingency power;
+    `th-2-sizing.py` keeps 1.15 and a 20 % power reserve.
+  - Effect: lowland max hover is overstated: Heavy 282 → 228 t, Fast 141 → 114 t
+    with consistent margins. So §11.3 "VTOL up to 270 t" and D1 are overstated,
+    and the strip distances are optimistic.
+- Ladder-frame rails are not in the weight model (E4). Rough order 8–15 t
+  Heavy / 4–7 t Fast, possibly most of the VTOL shuttle payload.
+- L/D (10 / 11) predates the ladder frame + 6 large ducts in cruise; likely
+  optimistic, especially for the Fast.
+- Other issues:
+  - The fan-out model assumes the CG sits at the middle pair (E8 shows the
+    Heavy's hold centre is 9 m forward of it).
+  - Strip-sim span (64 m) and CL·S are pre-ladder.
+  - "Max TOW for 800 m" isn't capped at the 270 t structure limit.
+  - Physics code is duplicated across the two scripts.
+  - Landing weights are hard-coded.
+  - Hover fuel is at sea-level density.
+
+### 23. Fix the model issues
+**Done:**
+- `th-2-sizing.py` now holds `VARIANTS`, the margins and `max_vtol_weight()`;
+  `th-2-strip.py` imports them (one source of truth).
+- Model changes:
+  - consistent margins in the strip sim,
+  - rails ~14.9 / ~8.5 t, Heavy soft-field gear +2 t,
+  - L/D 10/11 → 9/9.5,
+  - hover fuel at the design point,
+  - strip span 66 m, drag including rails, landing weight computed,
+    800 m max TOW capped at the STO limit,
+  - `range_km` argument.
+
+**Result:**
+- Heavy: empty 182 t, VTOL shuttle 27 → 9 t, STO 78 / 42 t, max VTOL at SL
+  228 t.
+- Fast: empty 97 t, VTOL shuttle 10 → none, STO 25 / 12 t, max VTOL at SL
+  114 t.
+- STO strips still ≤ 700 / 600 m.
+- Rails ±50 % moves the Heavy VTOL shuttle payload over ~2–17 t.
+- New decision D10 (payload vs. VTOL weight), engineering check E9 (size the
+  rails), D1 reframed, E4 done.
+- Notes §0 and §18 updated, superseded notes in §11.3/§14.3/§17, README and
+  drawing spec boxes updated.
+
+### 24. Drop the Fast?
+**User:** With these results the Fast is probably covered by existing aircraft; if
+so, drop it.
+**Answer / done:**
+- Confirmed. A400M: ~37 t, ~420 kn, ~750–1,000 m soft strips, far more range.
+  C-130J and C-390 are similar; CH-47F / CH-53K cover light vertical lift. The Fast
+  (25 / 12 t, no VTOL) adds only a ~300 m shorter strip.
+- Fast removed from `VARIANTS` (kept as a comment).
+- New Heavy-only drawing `th-2-heavy.*` (v5); two-variant sheet kept as
+  `th-2-variants-v4.*`.
+- Notes §0 rewritten for one design, §19 added, E6 closed, README updated.
+- Flagged: the same test applied to the Heavy (C-17 + CH-53K) → new decision D11.
+
+### 25. Do bigger fans and engines currently exist?
+**Answer:**
+- Per fan the Heavy needs ~22.5 MW installed / ~15 MW gearbox in a Ø14 m duct.
+- Turboshafts: ~8–10 MW is the largest flying (D-136), so ~2–3 per fan.
+- Gearboxes: the Mi-26's ~17 MW is the largest flying, so the Heavy is already
+  at that edge.
+- Ducted fans: nothing near 14 m has flown; only ground wind-tunnel fans
+  (NASA Ames, ~12 m).
+- Open rotors do go to 32–35 m (Mi-26, Mi-12).
+- Model: bigger fans lower payload (rails/ducts grow faster than the power
+  saving); 240 t gains only ~3.6 t VTOL.
+- Notes §20; D10 narrowed to design point, rail weight / mounting, or accepting
+  light VTOL.
+
+### 26. Do existing aircraft already cover long-haul transport + final delivery?
+**Answer:**
+- Long haul: C-17 (~77 t, ~4,400 km) beats the Heavy (42 t over 1,500 km).
+  A400M, Il-76 and An-124 cover the rest.
+- Final delivery:
+  - Mi-26 (~20 t at sea level) and CH-53K (~12 t hot-and-high) ≥ the Heavy's
+    9 t / 13 t VTOL.
+  - STOL: C-17 lands ~70 t in ~1,000 m; C-27J / C-295 do ~10 t in ~600 m.
+- Unique to the Heavy: ~78 t into ≤ 700 m soft strips without transshipment,
+  ~4,300 m³ hold, VTOL + STO in one airframe, water.
+- Reframed as a short-strip bulk lifter for the last few hundred km. Notes §21,
+  D11 updated.

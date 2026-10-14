@@ -15,8 +15,8 @@ green hull.
 **Files**
 | File | What |
 |---|---|
-| `th-2-variants.svg/.png` | **Current** drawing (v4): TB2-H Heavy + TB2-F Fast, top + side + front views with dimension arrows, ladder-frame fans, maximised corridor hold, same scale |
-| `th-2-variants-v3.*`, `-v2.*`, `-v1.*` | Previous variants drawings (v3: small hold, v2: 6 fans on wings, v1: 4 fans) |
+| `th-2-heavy.svg/.png` | **Current** drawing (v5): TB2-H Heavy only, top + side + front views with dimension arrows, ladder-frame fans, maximised corridor hold |
+| `th-2-variants-v4.*`, `-v3.*`, `-v2.*`, `-v1.*` | Previous two-variant drawings (v4: Heavy + Fast with maximised hold, v3: small hold, v2: 6 fans on wings, v1: 4 fans) |
 | `th-2-wing-options.svg/.png` | Lift-area options A–D compared |
 | `th-2-fan-tilt.svg/.png` | How the fans tilt: sequence, structural issues, mounting options, Heavy ladder-frame proposal |
 | `th-2-re-design.svg/.png` | Single-aircraft concept v3 (compound, ramp), before the H/F split |
@@ -31,25 +31,29 @@ green hull.
 
 ## 0. Current status (2026-10-14)
 
-### 0.1 The two variants
-| | **TB2-H Heavy** | **TB2-F Fast** |
-|---|---|---|
-| Layout | Tandem wing (B) + wide blended body with chines/edge guides (D) | High-aspect folding fwd-swept wing (A) + canard + H-tail (C) |
-| Size | ~82 m long, ~66 m span, body ~26 m wide, fins ~25 m high | ~70 m long, ~62 m span (folds to ~37 m), canard/H-tail ~35 m |
-| Lift fans | 6 × Ø14 m tilting ducted in ladder bays (pivots on inner + outer rails, z ≈ 9 m); also cruise propulsors | 6 × Ø10 m tilting ducted in ladder bays (z ≈ 7 m), feathered in cruise |
-| Cruise | fans only, ~330 kn | 2 dorsal turbofans ~160 kN, ~420 kn (Mach 0.7) |
-| Gross | 200 t VTOL / 270 t STO (structure for 270 t at 2.0 g) | 100 t VTOL / 125 t STO |
-| Empty | ~165 t (incl. ~9 t hold floor + walls) | ~87 t (incl. ~4 t) |
-| Hold | 50 × 20 m, 3 corridors (centre 7 × 5 m high, sides 6 × 4.2 m), ≈ 4,300 m³, 3 rear ramps | 44 × 9.5 m, 2 corridors 4.6 × 4.0 m, ≈ 830 m³, 2 rear ramps |
-| VTOL payload (up to 2,500 m / 40 °C) | ~27 t (300 km shuttle) / ~3 t (1,500 km) | ~10 t / ~1 t |
-| STO payload | ~96 t / ~63 t | ~35 t / ~24 t |
-| Strip (planning) | ≤ 700 m; vertical at lowland sites | ≤ 600 m; vertical at lowland sites |
-| Downwash | ~45 m/s | ~44 m/s |
-| Gear | ~22 main wheels (soft strips) | ~10 main wheels |
-| Role | Bulk to forward strip, VTOL shuttle into site | Rapid response, crews, medical, light vehicles |
+### 0.1 The design: TB2-H Heavy (the Fast was dropped, §19)
+| | **TB2-H Heavy** |
+|---|---|
+| Layout | Tandem wing (B) + wide blended body with chines/edge guides (D) |
+| Size | ~82 m long, ~66 m span, body ~26 m wide, fins ~25 m high |
+| Lift fans | 6 × Ø14 m tilting ducted in ladder bays (pivots on inner + outer rails, z ≈ 9 m); also cruise propulsors |
+| Cruise | fans only, ~330 kn, L/D ~9 |
+| Gross | 200 t VTOL / 270 t STO (structure for 270 t at 2.0 g) |
+| Empty | ~182 t (incl. ~15 t rails, ~9 t hold, ~2 t soft-field gear) |
+| Hold | 50 × 20 m, 3 corridors (centre 7 × 5 m high, sides 6 × 4.2 m), ≈ 4,300 m³, 3 rear ramps |
+| VTOL payload (up to 2,500 m / 40 °C) | **~9 t** (300 km shuttle) / none (1,500 km) |
+| STO payload (300 / 1,500 km) | ~78 t / ~42 t |
+| Strip (planning) | ≤ 700 m at 270 t; VTOL up to ~228 t at sea level |
+| Downwash | ~45 m/s |
+| Gear | ~22 main wheels (soft strips) |
+| Role | Bulk to forward strip, VTOL shuttle into site |
 
 **Doctrine:** fly long-range to a strip (big STO payload), then short VTOL shuttles
 (~300 km). At 4,000–5,000 m (Andes / Himalaya): STO from strips only.
+
+**Numbers above are from the corrected model (§18, 2026-10-14):** consistent
+margins, rails, soft-field gear and ladder-frame L/D. Rail mass is the least
+certain item (±50 % → VTOL shuttle ~2–17 t).
 
 ### 0.2 Decisions so far
 | Topic | Decision | § |
@@ -57,28 +61,27 @@ green hull.
 | Pitch balance | Lifting canard / forward surface, FBW | 2 |
 | Cargo access | No pod: internal hold + rear ramp, kneeling gear | 5 |
 | Structure | Carbon composite (787 / Stratolaunch style, not Rutan foam) | 5 |
-| Jets | Not for lift (hot exhaust, fuel); cruise jets only on the Fast | 6, 7 |
-| Variants | Heavy = B+D, Fast = A+C | 8 |
-| Fast engines | Proven separate turboshafts + turbofans (no convertible engines) | 9 |
+| Jets | Not for lift (hot exhaust, fuel); no cruise jets (fans only) | 6, 7 |
+| Variants | Heavy (B+D) only; the Fast (A+C) was dropped as covered by existing aircraft | 8, 19 |
 | Heavy STO | Structure and gear built for 270 t | 9 |
-| Cargo standard | ISO 20 ft containers; Heavy 2 × 2 on one level | 10 |
-| Fast fans in cruise | Feathered, ~Mach 0.7; no experimental stop/fold | 10 |
-| Shared parts | None: optimise each aircraft | 10 |
+| Cargo standard | ISO 20 ft containers, plus vehicles etc. in the maximised hold | 10, 14 |
 | Fan count | 6 fans (fan-out survivable in hover) | 10 |
 | Climate | Design point 2,500 m / 40 °C (Africa incl. highlands + warming) | 10 |
 | Rescue hoist | Not from the rear ramp; hoist/hook at CG or land and drive out | 10 |
 | Pod designs | Original pod-on-high-legs dropped entirely (impractical) | 13 |
-| Fan mounting | Ladder frame for both variants (provisional, D6) | 12, 13 |
+| Fan mounting | Ladder frame (provisional, D6) | 12, 13 |
 | Hold | Maximised: vehicles, small helicopters, livestock, people; corridor walls with doors (D7) | 14 |
 
 ### 0.3 Open questions (the only live list)
 **Decisions for the user**
-- [ ] **D1** Lowland VTOL above 200 t: allow (reduced control margin, no fan-out cover) or cap at ~230–250 t? (§11.3)
+- [ ] **D1** Lowland VTOL above 200 t: with full margins the limit is ~228 t at sea level. Allow up to that at lowland sites? (§18)
 - [ ] **D2** Balance from empty to full hold: adopt all of hold-centred loading, fore/aft trim tanks, surfaces sized for ±4 % CG, FBW? (§10.5 Q8)
 - [ ] **D3** Fan load split: 6 equal fans balanced by blade pitch? (§10.5 Q9)
 - [ ] **D4** Heavy middle fans: tilting, or fixed (hover only, dead weight in cruise)? (§10.7)
 - [ ] **D5** A future light high-altitude variant for Andes / Himalaya? (§10.4, §10.7)
-- [ ] **D8** Water capability: design both variants to land/float/take off vertically on water (watertight lower hull, spray-proof engines, ramp as boat slipway)? (§15)
+- [ ] **D8** Water capability: design the Heavy to land/float/take off vertically on water (watertight lower hull, spray-proof engines, ramp as boat slipway)? (§15)
+- [ ] **D10** **Payload vs. VTOL weight.** With rails and gear counted, the Heavy carries only ~9 t vertically at 2,500 m / 40 °C. Bigger fans or a bigger aircraft barely help (§20). Remaining options: lower the design point (SL 35 °C: ~22 t; 1,500 m 35 °C: ~15 t), or lighter / fewer rails (fans on wing roots + body sides). (§18)
+- [ ] **D11** **The Heavy's niche.** Same test as for the Fast: a C-17 (~77 t, ~1,000 m strips, longer range, faster) plus a CH-53K (~12 t vertical, hot-and-high) cover most of the Heavy's numbers. What stays unique: ~4,300 m³ hold, ≤ 700 m soft strips at 270 t, vertical + STO in one airframe, water landing (D8). Is that enough, or does D10 have to raise VTOL payload first? (§19, comparison in §21: existing C-17 / A400M + Mi-26 / CH-53K cover both roles; the Heavy's only edge is no transshipment, ~78 t from ≤ 700 m soft strips, volume and water.)
 - [ ] **D9** Second level: no fixed deck; use removable mezzanine / multi-deck modules only when a mission needs them? (§16)
 - [x] **D7** Maximise the hold (user decision, §14).
 - [x] **D6** *(provisionally adopted in drawing v3, §13)* Fan mounting: adopt the Heavy "ladder frame" (fans alternate with wings, pivots on inner + outer rails) and, for the Fast, tip spindles at canard / H-tail + a fork bay for the wing fans? (§12)
@@ -87,9 +90,10 @@ green hull.
 - [ ] **E1** Fan-wake interaction front → middle → rear during transition. (§10.7)
 - [ ] **E2** Cross-shaft routing to 6 fans; drivetrain failure modes. (§10.7)
 - [ ] **E3** Fan/engine failure during the take-off roll or first 15 m: reject or continue distances. (§11.5)
-- [ ] **E4** Add gear weight (22 / 10 main wheels) and ladder-frame rail weight to `th-2-sizing.py`. (§11.5, §13)
+- [x] **E4** Rail and soft-field gear weight added to `th-2-sizing.py` (rough; §18). Refine with a real rail structure → **E9**.
+- [ ] **E9** Size the rails properly (load cases: hover fan-out, cruise thrust, landing, gusts); current estimate ~15 t ±50 %. (§18)
 - [ ] **E5** Heavy footprint (~64 m span) at rescue sites; booms and sponsons structure. (§10.7)
-- [ ] **E6** Fast with ~34 m canard and H-tail: still "slim"? Drag impact on Mach 0.7. (§10.7)
+- [x] ~~**E6** Fast canard / H-tail drag~~: Fast dropped (§19).
 - [ ] **E8** Heavy hold centre (x ≈ 37 m) lies ahead of the CG (x ≈ 46 m): loading rules / trim range, or shift the hold aft. (§14)
 - [ ] **E7** Downwash: people at rescue sites, open ramp area in hover, brown-out and debris on unpaved strips. (§4, §5.5, §11.5)
 
@@ -677,6 +681,9 @@ and the An-72's rolls are longer than TB2's estimated distances.
 Reason: the fans carry most of the weight, so wing lift only has to make up the rest.
 
 ### 11.3 Surprise: hot-and-high power gives lowland VTOL at STO weight
+> **Superseded by §18:** with consistent margins the sea-level hover limit is ~228 t
+> (Heavy) / ~114 t (Fast), not 280 / 140 t, so VTOL at 270 t is not available.
+
 The engines are flat-rated for 2,500 m / 40 °C, so at sea level there is lots of
 spare thrust. Max hover (5 % margin): Heavy ~280 t, Fast ~140 t at sea level.
 At lowland sites the Heavy could **take off vertically at up to the 270 t structural
@@ -822,6 +829,8 @@ Side corridors: 2 × 20 ft containers abreast, livestock pens, seats or stretche
   also ties the flat sides.
 
 ### 14.3 Cost (in `th-2-sizing.py`, `hold_t`)
+> Payloads below are before the §18 model fixes; current values are in §0.1.
+
 - Heavy-duty floor in the vehicle lanes, light-duty floor elsewhere, plus corridor
   walls: **≈ +9 t Heavy, ≈ +4 t Fast** (rough estimate; partly offset by
   wall-tied skins).
@@ -919,6 +928,9 @@ attachment points.
 ---
 
 ## 17. Use case: prefab housing (2026-10-14)
+> VTOL counts below assume ~27 t / ~10 t; after §18 the Heavy carries ~9 t (≈ 50
+> shelters or 1 container home per VTOL shuttle). STO counts drop ~20 %.
+
 
 User idea: transport prefab houses. Rough industry figures, not a specific product:
 
@@ -937,3 +949,176 @@ User idea: transport prefab houses. Rough industry figures, not a specific produ
 - Relief chain: Heavy STO load of ~500 shelters / ~16 container homes to the
   nearest strip, then VTOL shuttles of modules or shelter batches into the
   cut-off area.
+
+---
+
+## 18. Model cross-check and fixes (2026-10-14)
+
+Cross-check of `th-2-sizing.py` and `th-2-strip.py` against the current design
+(log entry 22), then fixed:
+
+| Fix | Before | After |
+|---|---|---|
+| Shared data and physics | two copies of variants, rho, hover power | `VARIANTS`, margins and `max_vtol_weight()` in `th-2-sizing.py`; `th-2-strip.py` imports them |
+| Margins in the strip sim | 1.05 thrust, full contingency power | same as sizing: 1.15 thrust, 20 % power reserve |
+| Ladder-frame rails | not in model | 4 rails (72 m / 66 m), per-metre mass from fan-out pivot load + pivot fittings: **~14.9 t / ~8.5 t** |
+| Soft-field gear | not in model | Heavy +2 t (22 main wheels); Fast none |
+| Cruise L/D | 10 / 11 | **9 / 9.5** (rails + ducts add ~30 % wetted area); Fast cruise jets grow 7.4 → 8.6 t |
+| Hover fuel | at sea-level density | at the design point |
+| Strip sim | span 64 m, drag before rails, landing weight typed in, max TOW uncapped | span 66 m, drag +15–20 % for rails, landing weight from sizing fuel, max TOW capped at STO limit |
+| Mission range | global changed in `__main__` | `range_km` argument |
+
+### 18.1 Results
+| | Heavy before → now | Fast before → now |
+|---|---|---|
+| Empty | 165 → **182 t** | 87 → **97 t** |
+| Max VTOL weight, sea level | "282 t" → **228 t** | "141 t" → **114 t** |
+| VTOL payload 300 km (2,500 m / 40 °C) | 27 → **9 t** | 10 → **none (−0.3 t)** |
+| VTOL payload 1,500 km | 3 → none | 1 → none |
+| STO payload 300 / 1,500 km | 96 / 63 → **78 / 42 t** | 35 / 24 → **25 / 12 t** |
+| STO take-off to 15 m (270 / 125 t) | vertical at SL; 316 m at 2,500 m | **265 m** at SL; **478 m** at 2,500 m unpaved; **679 m** El Alto (Fast 222–522 m) |
+
+All STO cases still meet the ≤ 700 m / ≤ 600 m planning strips.
+
+### 18.2 Sensitivity to rail mass (300 km mission)
+| Rails | Heavy VTOL / STO | Fast VTOL / STO |
+|---|---|---|
+| × 0.5 | 17 t / 86 t | 4 t / 29 t |
+| × 1.0 | 9 t / 78 t | −0.3 t / 25 t |
+| × 1.5 | 2 t / 71 t | −5 t / 20 t |
+
+Design point (rails × 1.0, 300 km VTOL payload): Heavy at SL 35 °C ~22 t, at
+1,500 m 35 °C ~15 t; Fast at SL 35 °C ~6 t, at 1,500 m 35 °C ~3 t.
+
+### 18.3 What it means
+- The ladder frame costs about as much as the useful VTOL payload. **VTOL is now
+  marginal for the Heavy and not viable for the Fast at the 2,500 m / 40 °C point.**
+- STO is still strong: the aircraft are good STOL freighters with VTOL as a
+  light-load capability. → **D10**.
+- Volume is huge relative to payload (§14); a 9 t VTOL load is ~50 flat-pack
+  shelters or one container home.
+- Remaining assumptions: CG kept at the middle fan pair by loading rules (E8);
+  CLS (wing+body lift) not re-derived for the ladder layout.
+
+---
+
+## 19. Fast variant dropped (2026-10-14)
+
+**User:** with the §18 results, the Fast is probably already covered by current
+aircraft; if so, drop it.
+
+**Check (rough public figures):**
+
+| | Fast (after §18) | A400M | C-130J-30 | C-390 |
+|---|---|---|---|---|
+| Payload | 25 t (300 km) / 12 t (1,500 km) | up to ~37 t; ~20 t over ~6,000 km | ~19 t | ~26 t |
+| Cruise | ~420 kn | ~420 kn | ~340 kn | ~470 kn |
+| Strip | ≤ 600 m | ~750–1,000 m, soft strips | ~900–1,100 m | unpaved capable |
+| Vertical | none at the design point | — | — | — |
+
+Vertical light lift is covered by CH-47F (~10 t sling) and CH-53K (~12 t hot-and-high).
+Without real VTOL the Fast is roughly an A400M with a ~300 m shorter strip and far less
+range. **Decision: drop the Fast.**
+
+**What changed**
+- `th-2-sizing.py` / `th-2-strip.py`: Fast removed from `VARIANTS` (last entry kept
+  as a comment for comparison runs).
+- Drawing: new Heavy-only sheet `th-2-heavy.svg/.png` (v5); the two-variant sheet
+  is kept as `th-2-variants-v4.*`.
+- Fast-only items closed: E6, the Fast engine and cruise-fan decisions. History
+  sections (8–18) keep their Fast content as record.
+
+**Same test for the Heavy → D11.** A C-17 (~77 t, ~1,000 m strips, more range,
+faster) plus a CH-53K (~12 t vertical) cover most of its numbers. What the Heavy
+still has alone: the ~4,300 m³ corridor hold, 270 t from ≤ 700 m soft strips,
+vertical + STO in one airframe, and water landing (§15). With only ~9 t VTOL
+(§18), D10 (more VTOL payload) decides whether that niche is worth an aircraft.
+
+---
+
+## 20. Do bigger fans and engines exist? (2026-10-14)
+
+**What the Heavy needs per fan:** ~22.5 MW installed (SL rating), ~15 MW through
+the gearbox, Ø14 m duct.
+
+| Part | Largest that exists (rough public figures) | vs. the Heavy |
+|---|---|---|
+| Open rotors | Mi-26: 32 m rotor; Mi-12 (V-12): 2 × 35 m; CH-53K: 24 m | Bigger diameters are common; but open, not ducted or tilting |
+| Ducted fans on aircraft | A few metres (fan lifts, ducted-fan VTOL prototypes, turbofan fans ~3.4 m) | **Nothing near 14 m has flown** |
+| Large ducted fans on the ground | NASA Ames 40×80 / 80×120 ft wind tunnel: 6 fans Ø ~12 m, ~100 MW total | Similar size and power, but heavy and fixed |
+| Turboshafts | ~8–10 MW each (Mi-26 D-136 ~8.5 MW; A400M TP400 ~8 MW turboprop) | ~2–3 engines per fan; marine/industrial units (LM2500 ~25–30 MW) are much heavier per MW |
+| Gearboxes | Mi-26 main gearbox ~17 MW, the largest flying | Each fan needs ~15 MW: **one Mi-26 gearbox per fan, and it must tilt** |
+
+**Conclusion:** the engines exist in number (≈ 15 units), the gearboxes are at the
+edge of what has flown, and 14 m tilting ducted fans would be new. Bigger than
+that is beyond current hardware.
+
+**Would bigger help anyway?** No, the model says (300 km mission):
+
+| Case | Per-fan gearbox | Empty | VTOL payload | STO payload |
+|---|---|---|---|---|
+| Current: 200 t, 6 × Ø14 m | 15.3 MW | 182 t | **9.3 t** | 78 t |
+| 6 × Ø16 m (rails 80 m) | 13.4 MW | 185 t | 6.7 t | 75 t |
+| 6 × Ø18 m (rails 88 m) | 11.9 MW | 190 t | 1.8 t | 70 t |
+| 8 × Ø14 m (rails 96 m) | 9.9 MW | 188 t | 3.9 t | 73 t |
+| 240 t VTOL, 6 × Ø16 m | 17.6 MW (> Mi-26) | 217 t | 12.9 t | 96 t |
+
+Bigger fans need less power, but the longer rails and heavier ducts cost more
+than the power saved. Scaling the whole aircraft to 240 t gains only ~3.6 t of
+VTOL payload and needs gearboxes beyond anything flying. So D10 now rests on
+lower design point, lighter rails / other fan mounting, or accepting VTOL as a
+light-load capability.
+
+---
+
+## 21. Do existing aircraft already do this? (2026-10-14)
+
+Two roles: **(1) heavy transport over long distance**, **(2) final delivery** (STOL
+strip or VTOL). Rough public figures from memory; approximate.
+
+**Heavy (current / 240 t version):** STO 78 t (300 km) / 42 t (1,500 km) from
+≤ 700 m soft strips at 270 t, ~330 kn; VTOL 9 t (13 t at 240 t) at 2,500 m / 40 °C.
+
+### 21.1 Role 1: long-distance heavy transport
+| Aircraft | Payload | Range with that load | Strip | vs. Heavy |
+|---|---|---|---|---|
+| **C-17** | ~77 t | ~4,400 km | lands in ~1,000 m semi-prepared; needs ~2,000+ m to take off at max weight | Same payload, ~3× the range, ~450 kn |
+| A400M | ~37 t | ~3,300 km (20 t: ~6,000 km) | ~750–1,000 m soft at tactical weights | Less payload, much more range |
+| An-124 | ~120–150 t | ~3,000–4,500 km | ~3,000 m paved | Far more payload, runways only |
+| Il-76MD-90A | ~60 t | ~4,000 km | ~1,500–2,000 m | Less payload, more range |
+
+Over long distance the **Heavy loses clearly** (42 t over 1,500 km at ~330 kn).
+
+### 21.2 Role 2: final delivery
+**STOL** (delivering only needs a heavy *landing*; the aircraft leaves light):
+| Aircraft | Payload | Strip | vs. Heavy |
+|---|---|---|---|
+| C-17 | ~70 t | ~1,000 m (landing) | Close to the Heavy's 78 t; needs a longer, firmer strip |
+| A400M | ~25 t | ~750 m soft | |
+| C-130J | ~15–19 t | ~900 m soft | |
+| C-27J / C-295 | ~9–11 t | ~600 m soft | Same strip class as the Heavy, ~1/8 the load |
+
+**VTOL / helicopter:**
+| Aircraft | Payload | Notes | vs. Heavy |
+|---|---|---|---|
+| **Mi-26** | ~20 t internal or sling (sea level) | Largest flying helicopter; less when hot-and-high (no reliable figure from me) | ≥ the Heavy's 9 t |
+| **CH-53K** | ~12 t sling over ~200 km radius at 900 m / 33 °C | Spec'd for hot-and-high | ≈ the 240 t Heavy (13 t) |
+| CH-47F | ~10 t sling | Widely available | ≈ the Heavy |
+
+In development, not yet existing: hybrid airships (e.g. Flying Whales LCA60T, ~60 t
+with VTOL-style hover loading; Airlander ~10 t).
+
+### 21.3 Conclusion
+- The combination **C-17 / A400M to a strip + Mi-26 / CH-53K / CH-47 for the last
+  leg** already covers both roles, with more range in role 1 and equal or better
+  VTOL payload in role 2.
+- What only the Heavy does:
+  - delivers **~78 t into a ≤ 700 m soft strip with no transshipment** (C-17
+    needs ~1,000 m firmer ground; the next aircraft that lands in 700 m soft
+    carries ~10 t);
+  - a **~4,300 m³** hold (C-17 ~550 m³) for bulky relief cargo;
+  - VTOL and STO in one airframe, and water landing.
+- The 240 t version doesn't change this: VTOL ~13 t ≈ a CH-53K.
+- So the Heavy is best seen as a **short-strip bulk lifter for the last few
+  hundred km**, not as a long-haul transport or a heavy helicopter. That is
+  the honest frame for D11.
